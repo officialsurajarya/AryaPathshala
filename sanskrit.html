@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arya Pathshala (आर्य पाठशाला) - Learn Sanskrit Online</title>
+    <meta name="description"
+        content="Arya Pathshala - Complete Sanskrit learning platform with courses, video lectures, and resources for all levels">
+    <meta name="keywords" content="Sanskrit, learning, education, Devanagari, ancient texts, Indian culture">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:wght@400;600&family=Noto+Serif+Devanagari:wght@400;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #C73659;
+            --secondary-color: #D4AF37;
+            --accent-color: #A8C66C;
+            --main-color: #B22222;
+            --ash: #B2B2B2;
+            --background-color: #FDEAA8;
+            --text-color: #2E2E2E;
+            --light-bg: #FAF4E6;
+
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Serif Devanagari', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .sanskrit-text {
+            font-family: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', serif;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #A63D00);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), #A63D00);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.03)"/><circle cx="10" cy="90" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero .sanskrit-welcome {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Quote Slider */
+        .quote-slider {
+            background: var(--light-bg);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .quote.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .quote-translation {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-level {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .course-duration {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .enroll-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .enroll-btn:hover {
+            background: #A63D00;
+            transform: translateY(-2px);
+        }
+
+        /* Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .video-thumbnail {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Resources Section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .download-btn:hover {
+            background: #5A8A69;
+            transform: translateY(-2px);
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .blog-meta {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--light-bg);
+            border-radius: 10px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #A63D00;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding: 6rem 0 2rem;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --light-bg: #2d2d2d;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-mode .feature-card,
+        .dark-mode .course-card,
+        .dark-mode .video-card,
+        .dark-mode .resource-card,
+        .dark-mode .blog-card,
+        .dark-mode .contact-form {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .sanskrit-welcome {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features,
+            .courses-grid,
+            .video-grid,
+            .resources-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-om"></i>
+                <span>Arya Pathshala</span>
+                <span class="sanskrit-text">आर्य पाठशाला</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" onclick="showPage('home')">Home</a></li>
+                <li><a href="#courses" onclick="showPage('courses')">Courses</a></li>
+                <li><a href="#videos" onclick="showPage('videos')">Videos</a></li>
+                <li><a href="#resources" onclick="showPage('resources')">Resources</a></li>
+                <li><a href="#blog" onclick="showPage('blog')">Blog</a></li>
+                <li><a href="#contact" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page-section active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="sanskrit-text sanskrit-welcome" data-aos="fade-up">स्वागतम्</h1>
+                <h1 data-aos="fade-up" data-aos-delay="200">Arya Pathshala</h1>
+                <p data-aos="fade-up" data-aos-delay="400">Your gateway to the ancient wisdom of Sanskrit. Learn the
+                    sacred language through modern interactive methods.</p>
+                <a href="#courses" class="cta-button" data-aos="fade-up" data-aos-delay="600"
+                    onclick="showPage('courses')">Start Learning</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title sanskrit-text" data-aos="fade-up">मुख्य विशेषताएं</h2>
+                <div class="features">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Interactive Courses</h3>
+                        <p>Structured lessons from beginner to advanced levels with practical exercises and assessments.
+                        </p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Video Lectures</h3>
+                        <p>High-quality video lessons with Sanskrit pronunciation guides and cultural context.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Resources</h3>
+                        <p>Downloadable PDFs, audio chants, grammar guides, and digital dictionaries.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-slider">
+            <div class="container">
+                <div class="quote-container">
+                    <div class="quote active">
+                        <div class="quote-text sanskrit-text">सा विद्या या विमुक्तये</div>
+                        <div class="quote-translation">That is knowledge which liberates</div>
+                    </div>
+                    <div class="quote">
+                        <div class="quote-text sanskrit-text">विद्या ददाति विनयम्</div>
+                        <div class="quote-translation">Knowledge bestows humility</div>
+                    </div>
+                    <div class="quote">
+                        <div class="quote-text sanskrit-text">अहिंसा परमो धर्मः</div>
+                        <div class="quote-translation">Non-violence is the highest virtue</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Courses Page -->
+    <div id="courses" class="page-section">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Sanskrit Courses</h2>
+                <div class="courses-grid">
+                    <div class="course-card" data-aos="fade-up">
+                        <div class="course-image">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="course-content">
+                            <span class="course-level">Beginner</span>
+                            <h3 class="course-title">Sanskrit Basics</h3>
+                            <p class="course-duration"><i class="fas fa-clock"></i> 4 weeks</p>
+                            <p>Learn Devanagari script, basic grammar, and simple sentences. Perfect for absolute
+                                beginners.</p>
+                            <button class="enroll-btn" onclick="enrollCourse('basic')">Enroll Now</button>
+                        </div>
+                    </div>
+                    <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="course-image">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="course-content">
+                            <span class="course-level">Intermediate</span>
+                            <h3 class="course-title">Sanskrit Grammar</h3>
+                            <p class="course-duration"><i class="fas fa-clock"></i> 6 weeks</p>
+                            <p>Dive deeper into Sanskrit grammar, verb forms, and sentence construction.</p>
+                            <button class="enroll-btn" onclick="enrollCourse('grammar')">Enroll Now</button>
+                        </div>
+                    </div>
+                    <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="course-image">
+                            <i class="fas fa-scroll"></i>
+                        </div>
+                        <div class="course-content">
+                            <span class="course-level">Advanced</span>
+                            <h3 class="course-title">Classical Texts</h3>
+                            <p class="course-duration"><i class="fas fa-clock"></i> 8 weeks</p>
+                            <p>Study classical Sanskrit literature including Bhagavad Gita and Upanishads.</p>
+                            <button class="enroll-btn" onclick="enrollCourse('classical')">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Videos Page -->
+    <div id="videos" class="page-section">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Video Lectures</h2>
+                <div class="video-grid">
+                    <div class="video-card" data-aos="fade-up">
+                        <div class="video-thumbnail" onclick="playVideo('devanagari')">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Devanagari Script Introduction</h3>
+                            <p>Learn the fundamentals of Devanagari writing system</p>
+                            <p><i class="fas fa-clock"></i> 15 minutes</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="video-thumbnail" onclick="playVideo('pronunciation')">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Sanskrit Pronunciation Guide</h3>
+                            <p>Master the correct pronunciation of Sanskrit sounds</p>
+                            <p><i class="fas fa-clock"></i> 20 minutes</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="video-thumbnail" onclick="playVideo('mantras')">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Sacred Mantras</h3>
+                            <p>Learn and practice traditional Sanskrit mantras</p>
+                            <p><i class="fas fa-clock"></i> 25 minutes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Resources Page -->
+    <div id="resources" class="page-section">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Learning Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card" data-aos="fade-up">
+                        <div class="resource-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>Grammar Guide</h3>
+                        <p>Comprehensive PDF guide covering all Sanskrit grammar rules</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('grammar')">Download PDF</a>
+                    </div>
+                    <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="resource-icon">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <h3>Audio Chants</h3>
+                        <p>High-quality recordings of traditional Sanskrit chants</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('audio')">Download Audio</a>
+                    </div>
+                    <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Sanskrit Dictionary</h3>
+                        <p>Digital Sanskrit-English dictionary with search functionality</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('dictionary')">Access Dictionary</a>
+                    </div>
+                    <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="resource-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <h3>Devanagari Tools</h3>
+                        <p>Typing tools and converters for Devanagari script</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('tools')">Access Tools</a>
+                    </div>
+                    <div class="resource-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="resource-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>Reference Books</h3>
+                        <p>Curated list of essential Sanskrit learning books</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('books')">View List</a>
+                    </div>
+                    <div class="resource-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="resource-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Practice Worksheets</h3>
+                        <p>Printable worksheets for grammar and vocabulary practice</p>
+                        <a href="#" class="download-btn" onclick="downloadResource('worksheets')">Download
+                            Worksheets</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blog" class="page-section">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Blog & Articles</h2>
+                <div class="blog-grid">
+                    <div class="blog-card" data-aos="fade-up">
+                        <div class="blog-image">
+                            <i class="fas fa-om"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">The Sacred Sound of Sanskrit</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> January 15, 2024</p>
+                            <p>Discover the profound connection between Sanskrit sounds and spiritual practice. Learn
+                                how the ancient rishis understood the power of vibration...</p>
+                            <a href="#" class="read-more" onclick="readArticle('sacred-sound')">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="blog-image">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Sanskrit in Modern Times</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> January 10, 2024</p>
+                            <p>Explore how Sanskrit continues to influence modern languages, science, and technology.
+                                From yoga terminology to computer science...</p>
+                            <a href="#" class="read-more" onclick="readArticle('modern-sanskrit')">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="blog-image">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Learning Tips for Beginners</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> January 5, 2024</p>
+                            <p>Practical advice for starting your Sanskrit journey. Memory techniques, study schedules,
+                                and common mistakes to avoid...</p>
+                            <a href="#" class="read-more" onclick="readArticle('beginner-tips')">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="blog-image">
+                            <i class="fas fa-scroll"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Understanding Ancient Texts</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> December 28, 2023</p>
+                            <p>A guide to approaching classical Sanskrit literature. How to read the Vedas, Upanishads,
+                                and other sacred texts...</p>
+                            <a href="#" class="read-more" onclick="readArticle('ancient-texts')">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="blog-image">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Sanskrit Around the World</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> December 20, 2023</p>
+                            <p>Discover how Sanskrit has spread globally and influenced cultures worldwide. From
+                                Southeast Asia to the West...</p>
+                            <a href="#" class="read-more" onclick="readArticle('global-sanskrit')">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="blog-image">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Sanskrit for Daily Life</h3>
+                            <p class="blog-meta"><i class="fas fa-calendar"></i> December 15, 2023</p>
+                            <p>Simple Sanskrit phrases and mantras you can incorporate into your daily routine for peace
+                                and mindfulness...</p>
+                            <a href="#" class="read-more" onclick="readArticle('daily-sanskrit')">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page-section">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-form" data-aos="fade-up">
+                    <form onsubmit="submitForm(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="loading"></span> Sending...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-info" style="text-align: center; margin-top: 3rem;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Get in Touch</h3>
+                    <p><i class="fas fa-envelope"></i> info@aryapathshala.com</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Patna, Bihar, India</p>
+                    <div class="social-links" style="justify-content: center; margin-top: 2rem;">
+                        <a href="#" onclick="openSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" onclick="openSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                        <a href="#" onclick="openSocial('instagram')"><i class="fab fa-instagram"></i></a>
+                        <a href="#" onclick="openSocial('youtube')"><i class="fab fa-youtube"></i></a>
+                        <a href="#" onclick="openSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Arya Pathshala</h3>
+                    <p>Dedicated to preserving and teaching the ancient wisdom of Sanskrit for modern learners.</p>
+                    <div class="social-links">
+                        <a href="#" onclick="openSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" onclick="openSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                        <a href="#" onclick="openSocial('instagram')"><i class="fab fa-instagram"></i></a>
+                        <a href="#" onclick="openSocial('youtube')"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#home" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#courses" onclick="showPage('courses')">Courses</a></li>
+                        <li><a href="#videos" onclick="showPage('videos')">Videos</a></li>
+                        <li><a href="#resources" onclick="showPage('resources')">Resources</a></li>
+                        <li><a href="#blog" onclick="showPage('blog')">Blog</a></li>
+                        <li><a href="#contact" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Courses</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#" onclick="enrollCourse('basic')">Sanskrit Vyakaran</a></li>
+                        <li><a href="#" onclick="enrollCourse('grammar')">Darshan Shastra</a></li>
+                        <li><a href="#" onclick="enrollCourse('classical')">UGC NET/JRF(General)</a></li>
+                        <li><a href="#" onclick="enrollCourse('classical')">UGC NET/JRF(Sanskrit 25)</a></li>
+                        <li><a href="#" onclick="enrollCourse('classical')">UGC NET/JRF(Sanskrit 73)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> info@aryapathshala.com</p>
+                    <p><i class="fas fa-phone"></i> +91 62846-67127</p>
+                    <p><i class="fas fa-map-marker-alt"></i>.....</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 <strong>Arya Pathshala</strong>. All rights reserved. |
+                    Developed & Maintained by
+                    <a href="https://officialsurajarya.vercel.app/" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-color); text-decoration: none; font-weight: 900;">
+                        Suraj Arya
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Global variables
+        let currentQuote = 0;
+        let isDarkMode = false;
+        let currentPage = 'home';
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            currentPage = pageId;
+
+            // Update URL without page reload
+            history.pushState({ page: pageId }, '', `#${pageId}`);
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Refresh AOS animations
+            setTimeout(() => {
+                AOS.refresh();
+            }, 100);
+        }
+
+        // Quote Slider
+        function rotateQuotes() {
+            const quotes = document.querySelectorAll('.quote');
+            quotes[currentQuote].classList.remove('active');
+            currentQuote = (currentQuote + 1) % quotes.length;
+            quotes[currentQuote].classList.add('active');
+        }
+
+        // Start quote rotation
+        setInterval(rotateQuotes, 4000);
+
+        // Dark Mode Toggle
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Save preference
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'true') {
+                toggleTheme();
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Course Enrollment
+        function enrollCourse(courseType) {
+            const courseNames = {
+                'basic': 'Sanskrit Basics',
+                'grammar': 'Sanskrit Grammar',
+                'classical': 'Classical Texts',
+                'advanced': 'Advanced Studies'
+            };
+
+            alert(`Thank you for your interest in ${courseNames[courseType]}! Our team will contact you soon with enrollment details.`);
+        }
+
+        // Video Player
+        function playVideo(videoType) {
+            const videoTitles = {
+                'devanagari': 'Devanagari Script Introduction',
+                'pronunciation': 'Sanskrit Pronunciation Guide',
+                'mantras': 'Sacred Mantras'
+            };
+
+            alert(`Opening ${videoTitles[videoType]} video player...`);
+        }
+
+        // Resource Downloads
+        function downloadResource(resourceType) {
+            const resourceNames = {
+                'grammar': 'Grammar Guide PDF',
+                'audio': 'Audio Chants Collection',
+                'dictionary': 'Sanskrit Dictionary',
+                'tools': 'Devanagari Tools',
+                'books': 'Reference Books List',
+                'worksheets': 'Practice Worksheets'
+            };
+
+            alert(`Downloading ${resourceNames[resourceType]}...`);
+        }
+
+        // Blog Article Reader
+        function readArticle(articleId) {
+            const articles = {
+                'sacred-sound': 'The Sacred Sound of Sanskrit',
+                'modern-sanskrit': 'Sanskrit in Modern Times',
+                'beginner-tips': 'Learning Tips for Beginners',
+                'ancient-texts': 'Understanding Ancient Texts',
+                'global-sanskrit': 'Sanskrit Around the World',
+                'daily-sanskrit': 'Sanskrit for Daily Life'
+            };
+
+            alert(`Opening article: ${articles[articleId]}`);
+        }
+
+        // Contact Form Submission
+        function submitForm(event) {
+            event.preventDefault();
+
+            const submitBtn = document.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                btnText.style.display = 'inline-block';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+
+                alert('Thank you for your message! We will get back to you soon.');
+                event.target.reset();
+            }, 2000);
+        }
+
+        // Social Media Links
+        function openSocial(platform) {
+            const socialUrls = {
+                'facebook': 'https://facebook.com/aryapathshala',
+                'twitter': 'https://twitter.com/aryapathshala',
+                'instagram': 'https://instagram.com/aryapathshala',
+                'youtube': 'https://youtube.com/aryapathshala',
+                'whatsapp': 'https://wa.me/919876543210'
+            };
+
+            window.open(socialUrls[platform], '_blank');
+        }
+
+        // Smooth Scrolling for Internal Links
+        function smoothScroll(targetId) {
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Handle Browser Back/Forward
+        window.addEventListener('popstate', function (e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            loadTheme();
+
+            // Handle initial page load with hash
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showPage(hash);
+            }
+
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Add responsive behavior
+        window.addEventListener('resize', function () {
+            const navLinks = document.querySelector('.nav-links');
+            if (window.innerWidth > 768) {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
