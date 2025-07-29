@@ -1009,3 +1009,440 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    background: var(--accent-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.video-info {
+    padding: 20px;
+}
+
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.video-category {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--secondary-color);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.video-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.video-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-description {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.video-stats span {
+    display: flex;
+    align-items: center;
+}
+
+.video-stats i {
+    color: var(--primary-color);
+}
+
+/* Load More Button */
+.btn-load-more-videos {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-load-more-videos::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--main-color));
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.btn-load-more-videos:hover::before {
+    left: 0;
+}
+
+.btn-load-more-videos:hover {
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(199, 54, 89, 0.3);
+}
+
+/* Video Stats Section */
+.video-stats-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 20px;
+    box-shadow: 0 10px 30px rgba(199, 54, 89, 0.1);
+}
+
+.stat-card {
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--main-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+    font-size: 1.8rem;
+    box-shadow: 0 8px 20px rgba(199, 54, 89, 0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+/* Video Modal */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.video-modal-content {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.video-modal-close:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.video-player-wrapper {
+    height: 400px;
+    background: #000;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--main-color));
+}
+
+.video-loading {
+    text-align: center;
+    color: white;
+}
+
+.video-loading i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.video-loading p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.video-modal-info {
+    padding: 30px;
+}
+
+.video-modal-info h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.video-modal-info p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Animation Classes */
+.video-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.5s ease;
+}
+
+.video-item.hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
+.video-item.fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .featured-video-info {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+    .featured-video-title {
+        font-size: 1.6rem;
+    }
+
+    .video-player {
+        height: 300px;
+    }
+
+    .video-stats-row {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .video-actions {
+        flex-direction: column;
+    }
+
+    .btn-watch-now,
+    .btn-add-playlist {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .videos {
+        padding: 60px 0;
+    }
+
+    .videos .section-header .section-title {
+        font-size: 2.2rem;
+    }
+
+    .videos .section-header .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .video-filter-btn {
+        padding: 10px 20px;
+        margin: 0 5px 10px 0;
+        font-size: 0.9rem;
+    }
+
+    .featured-video {
+        padding: 20px;
+    }
+
+    .video-player {
+        height: 250px;
+    }
+
+    .featured-video-title {
+        font-size: 1.4rem;
+    }
+
+    .featured-video-description {
+        font-size: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .video-modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .video-player-wrapper {
+        height: 250px;
+    }
+
+    .video-modal-info {
+        padding: 20px;
+    }
+
+    .video-modal-info h3 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .videos .section-header .section-title {
+        font-size: 1.8rem;
+    }
+
+    .video-filter-btn {
+        width: calc(50% - 5px);
+        margin: 0 2.5px 10px 2.5px;
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+
+    .video-thumbnail-container {
+        height: 180px;
+    }
+
+    .video-info {
+        padding: 15px;
+    }
+
+    .video-title {
+        font-size: 1.1rem;
+    }
+
+    .video-stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+}
