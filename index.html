@@ -16,9 +16,9 @@
             <!-- Logo and Brand -->
             <a class="navbar-brand" href="#home">
                 <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
+                    <img src="logopng.png" alt="" width="100px">
                 </div>
-                <span>Arya Pathshala</span>
+                <!-- <span>Arya Pathshala</span> -->
             </a>
 
             <!-- Mobile Toggle Button -->
@@ -136,6 +136,677 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header text-center mb-5">
+                <h2 class="section-title">Our Popular Courses</h2>
+                <p class="section-subtitle">Discover our comprehensive range of courses designed to help you excel in
+                    your academic journey</p>
+            </div>
+
+            <!-- Course Filter Tabs -->
+            <div class="course-filters text-center mb-5">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th-large me-2"></i>All Courses
+                </button>
+                <button class="filter-btn" data-filter="science">
+                    <i class="fas fa-flask me-2"></i>Science
+                </button>
+                <button class="filter-btn" data-filter="mathematics">
+                    <i class="fas fa-calculator me-2"></i>Mathematics
+                </button>
+                <button class="filter-btn" data-filter="english">
+                    <i class="fas fa-book me-2"></i>English
+                </button>
+                <button class="filter-btn" data-filter="social">
+                    <i class="fas fa-globe me-2"></i>Social Studies
+                </button>
+            </div>
+
+            <!-- Courses Grid -->
+            <div class="row course-grid" id="courseGrid">
+                <!-- Science Courses -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="science">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <div class="course-badge">Popular</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">Science</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">Physics Fundamentals</h4>
+                            <p class="course-description">Master the core concepts of physics with interactive lessons
+                                and practical experiments.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>24 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,250 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹2,999</span>
+                                    <span class="current-price">₹1,999</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mathematics Courses -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="mathematics">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-square-root-alt"></i>
+                            </div>
+                            <div class="course-badge new">New</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">Mathematics</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">Advanced Calculus</h4>
+                            <p class="course-description">Dive deep into calculus concepts with step-by-step problem
+                                solving techniques.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>32 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>890 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹3,499</span>
+                                    <span class="current-price">₹2,299</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- English Courses -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="english">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <div class="course-badge">Trending</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">English</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">English Literature & Grammar</h4>
+                            <p class="course-description">Enhance your English skills with comprehensive literature and
+                                grammar lessons.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>28 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>2,100 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹2,799</span>
+                                    <span class="current-price">₹1,799</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chemistry Course -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="science">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="course-badge">Popular</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">Science</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">Organic Chemistry</h4>
+                            <p class="course-description">Master organic chemistry with detailed explanations and
+                                practical examples.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>26 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,850 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹3,199</span>
+                                    <span class="current-price">₹2,099</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Algebra Course -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="mathematics">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="course-badge">Bestseller</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">Mathematics</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">Linear Algebra</h4>
+                            <p class="course-description">Build a strong foundation in linear algebra with practical
+                                applications.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>30 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,650 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹2,899</span>
+                                    <span class="current-price">₹1,899</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Studies Course -->
+                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="social">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <div class="course-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="course-badge">New</div>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span class="course-category">Social Studies</span>
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.6</span>
+                                </div>
+                            </div>
+                            <h4 class="course-title">Indian History & Civics</h4>
+                            <p class="course-description">Explore India's rich history and understand civic
+                                responsibilities.</p>
+                            <div class="course-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>22 Hours</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>980 Students</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-price">
+                                    <span class="original-price">₹2,499</span>
+                                    <span class="current-price">₹1,699</span>
+                                </div>
+                                <button class="btn-enroll">
+                                    <i class="fas fa-play me-2"></i>Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button class="btn-load-more" id="loadMoreBtn">
+                    <i class="fas fa-plus me-2"></i>Load More Courses
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="videos" id="videos">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header text-center mb-5">
+                <h2 class="section-title">Educational Videos</h2>
+                <p class="section-subtitle">Watch our comprehensive video lectures and tutorials to enhance your
+                    learning experience</p>
+            </div>
+
+            <!-- Video Categories Filter -->
+            <div class="video-filters text-center mb-5">
+                <button class="video-filter-btn active" data-filter="all">
+                    <i class="fas fa-play-circle me-2"></i>All Videos
+                </button>
+                <button class="video-filter-btn" data-filter="lectures">
+                    <i class="fas fa-chalkboard-teacher me-2"></i>Lectures
+                </button>
+                <button class="video-filter-btn" data-filter="tutorials">
+                    <i class="fas fa-laptop-code me-2"></i>Tutorials
+                </button>
+                <button class="video-filter-btn" data-filter="experiments">
+                    <i class="fas fa-flask me-2"></i>Experiments
+                </button>
+                <button class="video-filter-btn" data-filter="solutions">
+                    <i class="fas fa-lightbulb me-2"></i>Solutions
+                </button>
+            </div>
+
+            <!-- Featured Video Player -->
+            <div class="featured-video mb-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-4 mb-lg-0">
+                        <div class="video-player-container">
+                            <div class="video-player" id="featuredPlayer">
+                                <div class="video-thumbnail">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23C73659'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='24' font-family='Arial'%3EPhysics: Laws of Motion%3C/text%3E%3C/svg%3E"
+                                        alt="Featured Video">
+                                    <div class="play-button" data-video="featured">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="video-duration">15:42</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="featured-video-info">
+                            <span class="video-category-badge">Physics</span>
+                            <h3 class="featured-video-title">Understanding Newton's Laws of Motion</h3>
+                            <p class="featured-video-description">
+                                Comprehensive explanation of Newton's three laws of motion with real-world examples and
+                                practical applications.
+                            </p>
+                            <div class="video-stats-row">
+                                <div class="video-stat">
+                                    <i class="fas fa-eye"></i>
+                                    <span>125K views</span>
+                                </div>
+                                <div class="video-stat">
+                                    <i class="fas fa-thumbs-up"></i>
+                                    <span>4.2K likes</span>
+                                </div>
+                                <div class="video-stat">
+                                    <i class="fas fa-clock"></i>
+                                    <span>15:42</span>
+                                </div>
+                            </div>
+                            <div class="video-actions mt-4">
+                                <button class="btn-watch-now">
+                                    <i class="fas fa-play me-2"></i>Watch Now
+                                </button>
+                                <button class="btn-add-playlist">
+                                    <i class="fas fa-plus me-2"></i>Add to Playlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Grid -->
+            <div class="row video-grid" id="videoGrid">
+                <!-- Lecture Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="lectures">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23B22222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EChemistry Basics%3C/text%3E%3C/svg%3E"
+                                alt="Chemistry Video" class="video-thumbnail">
+                            <div class="play-overlay" data-video="chemistry-basics">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">22:15</div>
+                            <div class="video-quality">HD</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">Chemistry</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Organic Chemistry Fundamentals</h4>
+                            <p class="video-description">Learn the basic concepts of organic chemistry with detailed
+                                explanations.</p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>89K views</span>
+                                <span><i class="fas fa-clock me-1"></i>22:15</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>3.2K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="tutorials">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23D4AF37'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EMath Tutorial%3C/text%3E%3C/svg%3E"
+                                alt="Math Tutorial" class="video-thumbnail">
+                            <div class="play-overlay" data-video="calculus-tutorial">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">18:30</div>
+                            <div class="video-quality">4K</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">Mathematics</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Calculus Step-by-Step Tutorial</h4>
+                            <p class="video-description">Master calculus with our comprehensive step-by-step tutorial
+                                series.</p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>156K views</span>
+                                <span><i class="fas fa-clock me-1"></i>18:30</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>5.8K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiment Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="experiments">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23A8C66C'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EPhysics Experiment%3C/text%3E%3C/svg%3E"
+                                alt="Physics Experiment" class="video-thumbnail">
+                            <div class="play-overlay" data-video="physics-experiment">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">12:45</div>
+                            <div class="video-quality">HD</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">Physics</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Electromagnetic Induction Experiment</h4>
+                            <p class="video-description">Hands-on experiment demonstrating electromagnetic induction
+                                principles.</p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>73K views</span>
+                                <span><i class="fas fa-clock me-1"></i>12:45</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>2.1K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="solutions">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23C73659'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EProblem Solutions%3C/text%3E%3C/svg%3E"
+                                alt="Problem Solutions" class="video-thumbnail">
+                            <div class="play-overlay" data-video="math-solutions">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">25:20</div>
+                            <div class="video-quality">HD</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">Mathematics</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.6</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Advanced Algebra Problem Solutions</h4>
+                            <p class="video-description">Detailed solutions to complex algebra problems with multiple
+                                approaches.</p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>112K views</span>
+                                <span><i class="fas fa-clock me-1"></i>25:20</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>4.5K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Lecture Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="lectures">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23B22222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EEnglish Literature%3C/text%3E%3C/svg%3E"
+                                alt="English Literature" class="video-thumbnail">
+                            <div class="play-overlay" data-video="english-literature">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">35:12</div>
+                            <div class="video-quality">4K</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">English</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Shakespeare's Literary Genius</h4>
+                            <p class="video-description">Explore the works of Shakespeare and understand his impact on
+                                literature.</p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>95K views</span>
+                                <span><i class="fas fa-clock me-1"></i>35:12</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>3.7K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Videos -->
+                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="tutorials">
+                    <div class="video-card">
+                        <div class="video-thumbnail-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23D4AF37'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EHistory Tutorial%3C/text%3E%3C/svg%3E"
+                                alt="History Tutorial" class="video-thumbnail">
+                            <div class="play-overlay" data-video="history-tutorial">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">28:45</div>
+                            <div class="video-quality">HD</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <span class="video-category">History</span>
+                                <div class="video-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                            <h4 class="video-title">Indian Independence Movement</h4>
+                            <p class="video-description">Comprehensive overview of India's struggle for independence.
+                            </p>
+                            <div class="video-stats">
+                                <span><i class="fas fa-eye me-1"></i>187K views</span>
+                                <span><i class="fas fa-clock me-1"></i>28:45</span>
+                                <span><i class="fas fa-thumbs-up me-1"></i>6.2K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Videos Button -->
+            <div class="text-center mt-5">
+                <button class="btn-load-more-videos" id="loadMoreVideos">
+                    <i class="fas fa-video me-2"></i>Load More Videos
+                </button>
+            </div>
+
+            <!-- Video Stats Section -->
+            <div class="video-stats-section mt-5">
+                <div class="row text-center">
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="stat-number" data-target="2500">0</div>
+                            <div class="stat-label">Total Videos</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-number" data-target="1200000">0</div>
+                            <div class="stat-label">Total Views</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number" data-target="85000">0</div>
+                            <div class="stat-label">Subscribers</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-number" data-target="5000">0</div>
+                            <div class="stat-label">Hours of Content</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Modal -->
+        <div class="video-modal" id="videoModal">
+            <div class="video-modal-content">
+                <button class="video-modal-close" id="closeVideoModal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="video-player-wrapper">
+                    <div class="video-placeholder" id="modalVideoPlayer">
+                        <div class="video-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading video...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-modal-info">
+                    <h3 id="modalVideoTitle">Video Title</h3>
+                    <p id="modalVideoDescription">Video description will appear here...</p>
+                </div>
+            </div>
         </div>
     </section>
 
