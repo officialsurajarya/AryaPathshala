@@ -13,7 +13,7 @@
     --secondary-color: #D4AF37;
     --accent-color: #A8C66C;
     --main-color: #B22222;
-    --ash: #B2B2B2;
+    --ash: #A89A8C;
     --background-color: #FDEAA8;
     --text-color: #2E2E2E;
     --light-bg: #FAF4E6;
@@ -35,8 +35,6 @@ body {
     background: linear-gradient(135deg, var(--background-color) 0%, var(--light-bg) 100%);
     box-shadow: 0 4px 20px rgba(199, 54, 89, 0.1);
     border-bottom: 2px solid var(--secondary-color);
-    padding: 1rem 0;
-    height: 100px;
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -291,7 +289,7 @@ body {
 }
 
 .stat-number {
-    display: block;
+    display: inline-block;
     font-size: 2rem;
     font-weight: 600;
     color: var(--primary-color);
@@ -303,6 +301,14 @@ body {
     color: var(--ash);
     font-family: 'Tiro Devanagari Sanskrit', serif;
 }
+
+.plus {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-left: 2px;
+}
+
 
 /* ===== Hero Actions ===== */
 .hero-actions {
