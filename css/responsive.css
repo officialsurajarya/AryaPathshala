@@ -1,0 +1,92 @@
+/* Header  */
+@media (max-width: 991px) {
+    .navbar {
+        height: auto;
+        padding: 0.5rem 0;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        display: inline-block;
+        margin: 5px 0;
+    }
+
+    .auth-btn {
+        margin: 10px 0;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Home */
+@media (max-width: 768px) {
+    .home {
+        padding: 100px 0 60px;
+    }
+
+    .hero-stats {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-primary-cta,
+    .btn-secondary-cta {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .visual-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .main-visual {
+        width: 250px;
+        height: 200px;
+    }
+
+    .sanskrit-symbol {
+        font-size: 5rem;
+    }
+
+    .floating-element {
+        width: 80px;
+        height: 50px;
+    }
+
+    .floating-element i {
+        font-size: 1.2rem;
+    }
+
+    .hero-description {
+        max-width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-stats {
+        gap: 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+}

@@ -4,21 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arya Pathshala - Header</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Arya Pathshala आर्य पाठशाला</title>
+    <link rel="icon" href="/images/Logo.png" type="image/png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:wght@400;600&family=Noto+Serif+Devanagari:wght@400;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top">
+
+
+
+    <header class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <!-- Logo and Brand -->
+
+            <!-- Logo -->
             <a class="navbar-brand" href="#home">
-                <div class="logo">
-                    <img src="logopng.png" alt="" width="100px">
-                </div>
-                <!-- <span>Arya Pathshala</span> -->
+                <img src="/images/Logo.png" alt="Logo" style="width: 80px;">
             </a>
 
             <!-- Mobile Toggle Button -->
@@ -26,1108 +36,128 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navigation Items -->
+            <!-- Nav Items -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="#home">
-                            <i class="fas fa-home me-1"></i>Home
+                            <i class="fas fa-home me-1"></i>मुखपृष्ठ
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#courses">
-                            <i class="fas fa-book me-1"></i>Courses
+                            <i class="fas fa-book me-1"></i>पाठक्रमाः
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#videos">
-                            <i class="fas fa-play-circle me-1"></i>Videos
+                            <i class="fas fa-play-circle me-1"></i>चलच्चित्राणि
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#resources">
-                            <i class="fas fa-folder me-1"></i>Resources
+                            <i class="fas fa-folder me-1"></i>साधनानि
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#blog">
-                            <i class="fas fa-blog me-1"></i>Blog
+                            <i class="fas fa-blog me-1"></i>वृत्तपत्रिका
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">
-                            <i class="fas fa-envelope me-1"></i>Contact
+                            <i class="fas fa-envelope me-1"></i>सम्पर्कः
                         </a>
                     </li>
                 </ul>
 
                 <!-- Auth Buttons -->
-                <div class="auth-buttons">
+                <div class="auth-btn">
                     <button class="btn btn-login" type="button">
-                        <i class="fas fa-sign-in-alt me-1"></i>Login
+                        <i class="fas fa-sign-in-alt me-1"></i>प्रवेशः
                     </button>
                     <button class="btn btn-signup" type="button">
-                        <i class="fas fa-user-plus me-1"></i>Sign Up
+                        <i class="fas fa-user-plus me-1"></i>पञ्जीकरणम्
                     </button>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Home Section with Carousel -->
-    <section class="home" id="home">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel container">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="bg home-content">
-                        <h1>Welcome to Arya Pathshala</h1>
-                        <p>Your gateway to quality education and
-                            learning resources</p>
-                        <div class="mt-4">
-                            <button class="btn btn-signup me-3">
-                                <i class="fas fa-rocket me-2"></i>Get Started
-                            </button>
-                            <button class="btn btn-login">
-                                <i class="fas fa-info-circle me-2"></i>Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="carousel-item">
-                    <div class="bg home-content">
-                        <h1>Welcome to Arya Pathshala</h1>
-                        <p>Your gateway to quality education and
-                            learning resources</p>
-                        <div class="mt-4">
-                            <button class="btn btn-signup me-3">
-                                <i class="fas fa-rocket me-2"></i>Get Started
-                            </button>
-                            <button class="btn btn-login">
-                                <i class="fas fa-info-circle me-2"></i>Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="bg home-content">
-                        <h1>Welcome to Arya Pathshala</h1>
-                        <p>Your gateway to quality education and
-                            learning resources</p>
-                        <div class="mt-4">
-                            <button class="btn btn-signup me-3">
-                                <i class="fas fa-rocket me-2"></i>Get Started
-                            </button>
-                            <button class="btn btn-login">
-                                <i class="fas fa-info-circle me-2"></i>Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
-
-    <!-- Courses Section -->
-    <section class="courses" id="courses">
-        <div class="container">
-            <!-- Section Header -->
-            <div class="section-header text-center mb-5">
-                <h2 class="section-title">Our Popular Courses</h2>
-                <p class="section-subtitle">Discover our comprehensive range of courses designed to help you excel in
-                    your academic journey</p>
-            </div>
-
-            <!-- Course Filter Tabs -->
-            <div class="course-filters text-center mb-5">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th-large me-2"></i>All Courses
-                </button>
-                <button class="filter-btn" data-filter="science">
-                    <i class="fas fa-flask me-2"></i>Science
-                </button>
-                <button class="filter-btn" data-filter="mathematics">
-                    <i class="fas fa-calculator me-2"></i>Mathematics
-                </button>
-                <button class="filter-btn" data-filter="english">
-                    <i class="fas fa-book me-2"></i>English
-                </button>
-                <button class="filter-btn" data-filter="social">
-                    <i class="fas fa-globe me-2"></i>Social Studies
-                </button>
-            </div>
-
-            <!-- Courses Grid -->
-            <div class="row course-grid" id="courseGrid">
-                <!-- Science Courses -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="science">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-atom"></i>
-                            </div>
-                            <div class="course-badge">Popular</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">Science</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">Physics Fundamentals</h4>
-                            <p class="course-description">Master the core concepts of physics with interactive lessons
-                                and practical experiments.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>24 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>1,250 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹2,999</span>
-                                    <span class="current-price">₹1,999</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mathematics Courses -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="mathematics">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-square-root-alt"></i>
-                            </div>
-                            <div class="course-badge new">New</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">Mathematics</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">Advanced Calculus</h4>
-                            <p class="course-description">Dive deep into calculus concepts with step-by-step problem
-                                solving techniques.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>32 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>890 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹3,499</span>
-                                    <span class="current-price">₹2,299</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- English Courses -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="english">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-pen-fancy"></i>
-                            </div>
-                            <div class="course-badge">Trending</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">English</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">English Literature & Grammar</h4>
-                            <p class="course-description">Enhance your English skills with comprehensive literature and
-                                grammar lessons.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>28 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>2,100 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹2,799</span>
-                                    <span class="current-price">₹1,799</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chemistry Course -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="science">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-vial"></i>
-                            </div>
-                            <div class="course-badge">Popular</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">Science</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">Organic Chemistry</h4>
-                            <p class="course-description">Master organic chemistry with detailed explanations and
-                                practical examples.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>26 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>1,850 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹3,199</span>
-                                    <span class="current-price">₹2,099</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Algebra Course -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="mathematics">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                            <div class="course-badge">Bestseller</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">Mathematics</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">Linear Algebra</h4>
-                            <p class="course-description">Build a strong foundation in linear algebra with practical
-                                applications.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>30 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>1,650 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹2,899</span>
-                                    <span class="current-price">₹1,899</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social Studies Course -->
-                <div class="col-lg-4 col-md-6 mb-4 course-item" data-category="social">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <div class="course-icon">
-                                <i class="fas fa-landmark"></i>
-                            </div>
-                            <div class="course-badge">New</div>
-                        </div>
-                        <div class="course-content">
-                            <div class="course-meta">
-                                <span class="course-category">Social Studies</span>
-                                <div class="course-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.6</span>
-                                </div>
-                            </div>
-                            <h4 class="course-title">Indian History & Civics</h4>
-                            <p class="course-description">Explore India's rich history and understand civic
-                                responsibilities.</p>
-                            <div class="course-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>22 Hours</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>980 Students</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <div class="course-price">
-                                    <span class="original-price">₹2,499</span>
-                                    <span class="current-price">₹1,699</span>
-                                </div>
-                                <button class="btn-enroll">
-                                    <i class="fas fa-play me-2"></i>Enroll Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Load More Button -->
-            <div class="text-center mt-5">
-                <button class="btn-load-more" id="loadMoreBtn">
-                    <i class="fas fa-plus me-2"></i>Load More Courses
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Videos Section -->
-    <section class="videos" id="videos">
-        <div class="container">
-            <!-- Section Header -->
-            <div class="section-header text-center mb-5">
-                <h2 class="section-title">Educational Videos</h2>
-                <p class="section-subtitle">Watch our comprehensive video lectures and tutorials to enhance your
-                    learning experience</p>
-            </div>
-
-            <!-- Video Categories Filter -->
-            <div class="video-filters text-center mb-5">
-                <button class="video-filter-btn active" data-filter="all">
-                    <i class="fas fa-play-circle me-2"></i>All Videos
-                </button>
-                <button class="video-filter-btn" data-filter="lectures">
-                    <i class="fas fa-chalkboard-teacher me-2"></i>Lectures
-                </button>
-                <button class="video-filter-btn" data-filter="tutorials">
-                    <i class="fas fa-laptop-code me-2"></i>Tutorials
-                </button>
-                <button class="video-filter-btn" data-filter="experiments">
-                    <i class="fas fa-flask me-2"></i>Experiments
-                </button>
-                <button class="video-filter-btn" data-filter="solutions">
-                    <i class="fas fa-lightbulb me-2"></i>Solutions
-                </button>
-            </div>
-
-            <!-- Featured Video Player -->
-            <div class="featured-video mb-5">
+    <main>
+        <!-- Home Section -->
+        <section class="home" id="home">
+            <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <div class="video-player-container">
-                            <div class="video-player" id="featuredPlayer">
-                                <div class="video-thumbnail">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23C73659'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='24' font-family='Arial'%3EPhysics: Laws of Motion%3C/text%3E%3C/svg%3E"
-                                        alt="Featured Video">
-                                    <div class="play-button" data-video="featured">
-                                        <i class="fas fa-play"></i>
-                                    </div>
-                                    <div class="video-duration">15:42</div>
-                                </div>
+                    <div class="col-lg-6 col-md-12 order-lg-1 order-2">
+                        <div class="hero-content">
+                            <div class="hero-badge">
+                                <span>प्रामाणिक संस्कृत शिक्षा</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="featured-video-info">
-                            <span class="video-category-badge">Physics</span>
-                            <h3 class="featured-video-title">Understanding Newton's Laws of Motion</h3>
-                            <p class="featured-video-description">
-                                Comprehensive explanation of Newton's three laws of motion with real-world examples and
-                                practical applications.
+
+                            <h1 class="hero-title">
+                                <span class="sanskrit-text">आर्य पाठशाला</span>
+                                <span class="subtitle">Where Ancient Wisdom Meets Modern Learning</span>
+                            </h1>
+
+                            <p class="hero-description">
+                                संस्कृत भाषायाः गहन अध्ययनं करतु। Discover the profound beauty of Sanskrit language
+                                through our comprehensive courses designed for modern learners seeking authentic
+                                Vedic knowledge and cultural heritage.
                             </p>
-                            <div class="video-stats-row">
-                                <div class="video-stat">
-                                    <i class="fas fa-eye"></i>
-                                    <span>125K views</span>
+
+                            <div class="hero-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">500+</span>
+                                    <span class="stat-label">छात्राः</span>
                                 </div>
-                                <div class="video-stat">
-                                    <i class="fas fa-thumbs-up"></i>
-                                    <span>4.2K likes</span>
+                                <div class="stat-item">
+                                    <span class="stat-number">50+</span>
+                                    <span class="stat-label">पाठक्रमाः</span>
                                 </div>
-                                <div class="video-stat">
-                                    <i class="fas fa-clock"></i>
-                                    <span>15:42</span>
+                                <div class="stat-item">
+                                    <span class="stat-number">10+</span>
+                                    <span class="stat-label">वर्षाः</span>
                                 </div>
                             </div>
-                            <div class="video-actions mt-4">
-                                <button class="btn-watch-now">
-                                    <i class="fas fa-play me-2"></i>Watch Now
+
+                            <div class="hero-actions">
+                                <button class="btn-primary-cta">
+                                    <i class="fas fa-play-circle"></i>
+                                    <span>अध्ययनम् आरभत</span>
+                                    <span class="btn-subtitle">Start Learning</span>
                                 </button>
-                                <button class="btn-add-playlist">
-                                    <i class="fas fa-plus me-2"></i>Add to Playlist
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Videos Grid -->
-            <div class="row video-grid" id="videoGrid">
-                <!-- Lecture Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="lectures">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23B22222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EChemistry Basics%3C/text%3E%3C/svg%3E"
-                                alt="Chemistry Video" class="video-thumbnail">
-                            <div class="play-overlay" data-video="chemistry-basics">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">22:15</div>
-                            <div class="video-quality">HD</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">Chemistry</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Organic Chemistry Fundamentals</h4>
-                            <p class="video-description">Learn the basic concepts of organic chemistry with detailed
-                                explanations.</p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>89K views</span>
-                                <span><i class="fas fa-clock me-1"></i>22:15</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>3.2K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tutorial Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="tutorials">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23D4AF37'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EMath Tutorial%3C/text%3E%3C/svg%3E"
-                                alt="Math Tutorial" class="video-thumbnail">
-                            <div class="play-overlay" data-video="calculus-tutorial">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">18:30</div>
-                            <div class="video-quality">4K</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">Mathematics</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Calculus Step-by-Step Tutorial</h4>
-                            <p class="video-description">Master calculus with our comprehensive step-by-step tutorial
-                                series.</p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>156K views</span>
-                                <span><i class="fas fa-clock me-1"></i>18:30</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>5.8K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Experiment Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="experiments">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23A8C66C'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EPhysics Experiment%3C/text%3E%3C/svg%3E"
-                                alt="Physics Experiment" class="video-thumbnail">
-                            <div class="play-overlay" data-video="physics-experiment">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">12:45</div>
-                            <div class="video-quality">HD</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">Physics</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Electromagnetic Induction Experiment</h4>
-                            <p class="video-description">Hands-on experiment demonstrating electromagnetic induction
-                                principles.</p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>73K views</span>
-                                <span><i class="fas fa-clock me-1"></i>12:45</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>2.1K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Solution Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="solutions">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23C73659'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EProblem Solutions%3C/text%3E%3C/svg%3E"
-                                alt="Problem Solutions" class="video-thumbnail">
-                            <div class="play-overlay" data-video="math-solutions">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">25:20</div>
-                            <div class="video-quality">HD</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">Mathematics</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.6</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Advanced Algebra Problem Solutions</h4>
-                            <p class="video-description">Detailed solutions to complex algebra problems with multiple
-                                approaches.</p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>112K views</span>
-                                <span><i class="fas fa-clock me-1"></i>25:20</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>4.5K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- More Lecture Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="lectures">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23B22222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EEnglish Literature%3C/text%3E%3C/svg%3E"
-                                alt="English Literature" class="video-thumbnail">
-                            <div class="play-overlay" data-video="english-literature">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">35:12</div>
-                            <div class="video-quality">4K</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">English</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Shakespeare's Literary Genius</h4>
-                            <p class="video-description">Explore the works of Shakespeare and understand his impact on
-                                literature.</p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>95K views</span>
-                                <span><i class="fas fa-clock me-1"></i>35:12</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>3.7K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tutorial Videos -->
-                <div class="col-lg-4 col-md-6 mb-4 video-item" data-category="tutorials">
-                    <div class="video-card">
-                        <div class="video-thumbnail-container">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23D4AF37'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='white' font-size='16' font-family='Arial'%3EHistory Tutorial%3C/text%3E%3C/svg%3E"
-                                alt="History Tutorial" class="video-thumbnail">
-                            <div class="play-overlay" data-video="history-tutorial">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-duration">28:45</div>
-                            <div class="video-quality">HD</div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <span class="video-category">History</span>
-                                <div class="video-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7</span>
-                                </div>
-                            </div>
-                            <h4 class="video-title">Indian Independence Movement</h4>
-                            <p class="video-description">Comprehensive overview of India's struggle for independence.
-                            </p>
-                            <div class="video-stats">
-                                <span><i class="fas fa-eye me-1"></i>187K views</span>
-                                <span><i class="fas fa-clock me-1"></i>28:45</span>
-                                <span><i class="fas fa-thumbs-up me-1"></i>6.2K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Load More Videos Button -->
-            <div class="text-center mt-5">
-                <button class="btn-load-more-videos" id="loadMoreVideos">
-                    <i class="fas fa-video me-2"></i>Load More Videos
-                </button>
-            </div>
-
-            <!-- Video Stats Section -->
-            <div class="video-stats-section mt-5">
-                <div class="row text-center">
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
-                            <div class="stat-number" data-target="2500">0</div>
-                            <div class="stat-label">Total Videos</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <div class="stat-number" data-target="1200000">0</div>
-                            <div class="stat-label">Total Views</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="stat-number" data-target="85000">0</div>
-                            <div class="stat-label">Subscribers</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="stat-number" data-target="5000">0</div>
-                            <div class="stat-label">Hours of Content</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Video Modal -->
-        <div class="video-modal" id="videoModal">
-            <div class="video-modal-content">
-                <button class="video-modal-close" id="closeVideoModal">
-                    <i class="fas fa-times"></i>
-                </button>
-                <div class="video-player-wrapper">
-                    <div class="video-placeholder" id="modalVideoPlayer">
-                        <div class="video-loading">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading video...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="video-modal-info">
-                    <h3 id="modalVideoTitle">Video Title</h3>
-                    <p id="modalVideoDescription">Video description will appear here...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Us Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <!-- Section Header -->
-            <div class="section-header text-center mb-5">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Have questions or need assistance? We're here to help you on your
-                    educational journey</p>
-            </div>
-
-            <div class="row">
-                <!-- Contact Information -->
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <div class="contact-info">
-                        <div class="contact-intro">
-                            <h3>Let's Start a Conversation</h3>
-                            <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-                        </div>
-
-                        <!-- Contact Cards -->
-                        <div class="contact-cards">
-                            <div class="contact-card">
-                                <div class="contact-icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Visit Us</h4>
-                                    <p>123 Education Street<br>Knowledge District<br>Learning City, LC 12345</p>
-                                </div>
-                            </div>
-
-                            <div class="contact-card">
-                                <div class="contact-icon">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Call Us</h4>
-                                    <p>+91 98765 43210<br>+91 87654 32109</p>
-                                    <span class="availability">Mon-Fri: 9AM-6PM</span>
-                                </div>
-                            </div>
-
-                            <div class="contact-card">
-                                <div class="contact-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Email Us</h4>
-                                    <p>info@aryapathshala.com<br>support@aryapathshala.com</p>
-                                    <span class="availability">24/7 Support</span>
-                                </div>
-                            </div>
-
-                            <div class="contact-card">
-                                <div class="contact-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="contact-details">
-                                    <h4>Office Hours</h4>
-                                    <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday:
-                                        Closed</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Social Media Links -->
-                        <div class="social-links">
-                            <h4>Follow Us</h4>
-                            <div class="social-icons">
-                                <a href="#" class="social-icon facebook" data-platform="Facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="social-icon twitter" data-platform="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="social-icon instagram" data-platform="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="social-icon linkedin" data-platform="LinkedIn">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="#" class="social-icon youtube" data-platform="YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a href="#" class="social-icon whatsapp" data-platform="WhatsApp">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="col-lg-7">
-                    <div class="contact-form-container">
-                        <div class="contact-form-header">
-                            <h3>Send us a Message</h3>
-                            <p>Fill out the form below and we'll get back to you within 24 hours</p>
-                        </div>
-
-                        <form class="contact-form" id="contactForm" novalidate>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="firstName" class="form-label">
-                                            <i class="fas fa-user me-2"></i>First Name
-                                        </label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName"
-                                            required>
-                                        <div class="invalid-feedback">Please enter your first name.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="lastName" class="form-label">
-                                            <i class="fas fa-user me-2"></i>Last Name
-                                        </label>
-                                        <input type="text" class="form-control" id="lastName" name="lastName" required>
-                                        <div class="invalid-feedback">Please enter your last name.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">
-                                            <i class="fas fa-envelope me-2"></i>Email Address
-                                        </label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
-                                        <div class="invalid-feedback">Please enter a valid email address.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">
-                                            <i class="fas fa-phone me-2"></i>Phone Number
-                                        </label>
-                                        <input type="tel" class="form-control" id="phone" name="phone">
-                                        <div class="invalid-feedback">Please enter a valid phone number.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <div class="form-group">
-                                    <label for="subject" class="form-label">
-                                        <i class="fas fa-tag me-2"></i>Subject
-                                    </label>
-                                    <select class="form-control" id="subject" name="subject" required>
-                                        <option value="">Choose a subject...</option>
-                                        <option value="general">General Inquiry</option>
-                                        <option value="courses">Course Information</option>
-                                        <option value="admission">Admission Process</option>
-                                        <option value="technical">Technical Support</option>
-                                        <option value="feedback">Feedback</option>
-                                        <option value="partnership">Partnership</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select a subject.</div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <div class="form-group">
-                                    <label for="message" class="form-label">
-                                        <i class="fas fa-comment me-2"></i>Message
-                                    </label>
-                                    <textarea class="form-control" id="message" name="message" rows="5"
-                                        placeholder="Tell us more about your inquiry..." required></textarea>
-                                    <div class="invalid-feedback">Please enter your message.</div>
-                                    <div class="character-count">
-                                        <span id="charCount">0</span>/500 characters
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
-                                    <label class="form-check-label" for="newsletter">
-                                        Subscribe to our newsletter for updates and educational content
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="privacy" name="privacy"
-                                        required>
-                                    <label class="form-check-label" for="privacy">
-                                        I agree to the <a href="#" class="privacy-link">Privacy Policy</a> and <a
-                                            href="#" class="privacy-link">Terms of Service</a>
-                                    </label>
-                                    <div class="invalid-feedback">Please accept the privacy policy.</div>
-                                </div>
-                            </div>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn-submit" id="submitBtn">
-                                    <span class="btn-text">
-                                        <i class="fas fa-paper-plane me-2"></i>Send Message
-                                    </span>
-                                    <span class="btn-loading" style="display: none;">
-                                        <i class="fas fa-spinner fa-spin me-2"></i>Sending...
-                                    </span>
-                                </button>
-                                <button type="reset" class="btn-reset">
-                                    <i class="fas fa-redo me-2"></i>Reset Form
+                                <button class="btn-secondary-cta">
+                                    <i class="fas fa-video"></i>
+                                    <span>परिचय दर्शयतु</span>
+                                    <span class="btn-subtitle">Watch Demo</span>
                                 </button>
                             </div>
-                        </form>
-
-                        <!-- Success Message -->
-                        <div class="form-success" id="successMessage" style="display: none;">
-                            <div class="success-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <h4>Message Sent Successfully!</h4>
-                            <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
-                            <button class="btn-new-message" onclick="resetForm()">
-                                <i class="fas fa-plus me-2"></i>Send Another Message
-                            </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- FAQ Section -->
-            <div class="faq-section mt-5">
-                <div class="text-center mb-5">
-                    <h3 class="faq-title">Frequently Asked Questions</h3>
-                    <p class="faq-subtitle">Find answers to common questions about our services</p>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="accordion" id="faqAccordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq1">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse1">
-                                        <i class="fas fa-graduation-cap me-3"></i>
-                                        How do I enroll in a course?
-                                    </button>
-                                </h2>
-                                <div id="collapse1" class="accordion-collapse collapse show"
-                                    data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        You can enroll in any course by clicking the "Enroll Now" button on the course
-                                        page. Create an account, choose your payment method, and start learning
-                                        immediately.
-                                    </div>
+                    <div class="col-lg-6 col-md-12 order-lg-2 order-1">
+                        <div class="hero-visual">
+                            <div class="visual-container">
+                                <div class="floating-element elem-1">
+                                    <i>ऋग्वेद</i>
                                 </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq2">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse2">
-                                        <i class="fas fa-certificate me-3"></i>
-                                        Do you provide certificates?
-                                    </button>
-                                </h2>
-                                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Yes, we provide certificates of completion for all our courses. Certificates are
-                                        issued after successfully completing all course requirements and assessments.
-                                    </div>
+                                <div class="floating-element elem-2">
+                                    <i>सामवेद</i>
                                 </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq3">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse3">
-                                        <i class="fas fa-clock me-3"></i>
-                                        What are your support hours?
-                                    </button>
-                                </h2>
-                                <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Our support team is available Monday through Friday from 9:00 AM to 6:00 PM. For
-                                        urgent matters, you can reach us via email 24/7 and we'll respond within 24
-                                        hours.
-                                    </div>
+                                <div class="floating-element elem-3">
+                                    <i>यजुर्वेद</i>
                                 </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq4">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse4">
-                                        <i class="fas fa-money-bill-wave me-3"></i>
-                                        What payment methods do you accept?
-                                    </button>
-                                </h2>
-                                <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        We accept all major credit cards, debit cards, UPI payments, net banking, and
-                                        digital wallets. All transactions are secure and encrypted.
-                                    </div>
+                                <div class="floating-element elem-4">
+                                    <i>अथर्ववेद</i>
                                 </div>
-                            </div>
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq5">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse5">
-                                        <i class="fas fa-mobile-alt me-3"></i>
-                                        Is there a mobile app available?
-                                    </button>
-                                </h2>
-                                <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Yes, our mobile app is available for both iOS and Android devices. You can
-                                        download it from the App Store or Google Play Store to access your courses on
-                                        the go.
+                                <div class="main-visual">
+                                    <div class="visual-backdrop"></div>
+                                    <div class="sanskrit-symbol">
+                                        वेदाः
                                     </div>
                                 </div>
                             </div>
@@ -1136,50 +166,20 @@
                 </div>
             </div>
 
-            <!-- Contact Stats -->
-            <div class="contact-stats mt-5">
-                <div class="row text-center">
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-icon">
-                                <i class="fas fa-headset"></i>
-                            </div>
-                            <div class="stat-number" data-target="24">0</div>
-                            <div class="stat-label">Hours Support</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-icon">
-                                <i class="fas fa-reply"></i>
-                            </div>
-                            <div class="stat-number" data-target="98">0</div>
-                            <div class="stat-label">% Response Rate</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="stat-number" data-target="2">0</div>
-                            <div class="stat-label">Hours Avg Response</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-icon">
-                                <i class="fas fa-smile"></i>
-                            </div>
-                            <div class="stat-number" data-target="95">0</div>
-                            <div class="stat-label">% Satisfaction</div>
-                        </div>
-                    </div>
+            <div class="scroll-indicator">
+                <div class="scroll-arrow">
+                    <i class="fas fa-chevron-down"></i>
                 </div>
+                <span class="scroll-text">अधः स्क्रॉल करतु</span>
             </div>
-        </div>
-    </section>
+        </section>
 
+
+    </main>
+
+    <footer>
+
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
