@@ -1,0 +1,168 @@
+// Arya Pathshala — Prisma Schema for MySQL / MariaDB (Hostinger Compatible)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum EnrollmentStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  REPLIED
+}
+
+model User {
+  id                   Int          @id @default(autoincrement())
+  name                 String
+  email                String       @unique
+  phone                String?
+  password             String
+  role                 Role         @default(STUDENT)
+  isVerified           Boolean      @default(false)
+  verificationToken    String?      @db.VarChar(255)
+  resetPasswordToken   String?      @db.VarChar(255)
+  resetPasswordExpires DateTime?
+  lastLogin            DateTime?
+  avatar               String?      @default("🕉️")
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  enrollments          Enrollment[]
+
+  @@map("users")
+}
+
+model Course {
+  id             Int          @id @default(autoincrement())
+  slug           String       @unique
+  category       String
+  title          String
+  titleEn        String?
+  description    String       @db.Text
+  image          String
+  originalPrice  String
+  currentPrice   String
+  rating         Float        @default(4.8)
+  durationHours  Int          @default(30)
+  studentsCount  Int          @default(100)
+  hasCertificate Boolean      @default(true)
+  badgeText      String?
+  badgeType      String?
+  isPublished    Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  enrollments    Enrollment[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id              Int              @id @default(autoincrement())
+  userId          Int
+  courseId        Int
+  status          EnrollmentStatus @default(ACTIVE)
+  progressPercent Int              @default(0)
+  enrolledAt      DateTime         @default(now())
+  completedAt     DateTime?
+  notes           String?          @db.Text
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course          Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model LibraryBook {
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleEn       String?
+  author        String
+  authorEn      String?
+  category      String   // mainBook, VaykhyanBook, VidhwatLekh
+  language      String   @default("संस्कृत")
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  pages         Int      @default(100)
+  year          String?
+  rating        Float    @default(5.0)
+  views         Int      @default(0)
+  downloads     Int      @default(0)
+  image         String?
+  pdfUrl        String?
+  tags          String?
+  fileSize      String?
+  format        String   @default("PDF")
+  isAvailable   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("library_books")
+}
+
+model Notice {
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String    @db.Text
+  type        String
+  category    String    // important, course, exam, update
+  dateText    String?
+  actionText  String?
+  actionLink  String?
+  priority    Priority  @default(MEDIUM)
+  isPublished Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("notices")
+}
+
+model ContactMessage {
+  id         Int           @id @default(autoincrement())
+  firstName  String
+  lastName   String?
+  email      String
+  phone      String?
+  subject    String
+  message    String        @db.Text
+  status     MessageStatus @default(UNREAD)
+  replyNotes String?       @db.Text
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@map("contact_messages")
+}
+
+model SystemSetting {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("system_settings")
+}

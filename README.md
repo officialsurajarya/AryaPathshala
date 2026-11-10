@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# 🕉️ आर्य पाठशाला (Arya Pathshala)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Comprehensive Vedic & Sanskrit Educational Portal — Full-Stack Architecture.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📁 Project Architecture
 
-### `npm start`
+The project is cleanly separated into two distinct, decoupled applications:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```text
+aryapathshalaCode/
+├── client/                     # Frontend Application (React 19, Bootstrap, FontAwesome)
+│   ├── public/                 # Static assets, course images, HTML template
+│   ├── src/                    # Components, Pages, State, API Client
+│   │   ├── api/                # Centralized API client (client.js)
+│   │   ├── components/         # Header, Home, Courses, Library, AdminPanel, etc.
+│   │   ├── context/            # Authentication Context (AuthContext.js)
+│   │   ├── App.js              # Root component
+│   │   └── index.js            # React entry
+│   ├── .env                    # Client environment (API URL)
+│   ├── .env.example            # Client env template
+│   ├── package.json            # Frontend-only dependencies
+│   └── README.md               # Frontend documentation
+│
+├── server/                     # Backend API Server (Node.js, Express, Prisma ORM, MySQL)
+│   ├── prisma/                 # Database schema (schema.prisma) & seed script (seed.js)
+│   ├── src/                    # Express controllers, routes, middleware, utilities
+│   │   ├── config/             # Database connection (Prisma client)
+│   │   ├── controllers/        # Auth, Courses, Library, Notices, Admin, etc.
+│   │   ├── middleware/         # JWT auth, rate limiting, error handling
+│   │   ├── routes/             # REST endpoints
+│   │   ├── utils/              # JWT, Email, Response helpers
+│   │   ├── app.js              # Express app setup & CORS configuration
+│   │   └── server.js           # Server listen & lifecycle entry
+│   ├── .env                    # Server environment (Database URL, JWT Secret)
+│   ├── .env.example            # Server env template
+│   ├── package.json            # Backend-only dependencies
+│   └── README.md               # Backend API documentation
+│
+├── .gitignore                  # Monorepo-level gitignore
+├── package.json                # Root workspace orchestrator scripts
+└── README.md                   # This project guide
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ⚡ Quick Start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Prerequisites
+- **Node.js**: v18.0.0 or higher
+- **MySQL / MariaDB**: Running locally (e.g. XAMPP, WAMP, or MySQL service) or on Hostinger.
 
-### `npm run build`
+### 2. Configure Environment Files
+- **Server**: Check `server/.env` (or copy from `server/.env.example`):
+  ```env
+  PORT=5000
+  DATABASE_URL="mysql://root:password@localhost:3306/aryapathshala"
+  JWT_SECRET="your-secure-jwt-secret"
+  ```
+- **Client**: Check `client/.env` (or copy from `client/.env.example`):
+  ```env
+  PORT=3000
+  REACT_APP_API_URL=http://localhost:5000/api
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏃 Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Option A: From Root Directory (Recommended)
+You can run client and server directly from the root using workspace scripts:
 
-### `npm run eject`
+```bash
+# Terminal 1 — Start Backend Server (runs on http://localhost:5000)
+npm run server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Terminal 2 — Start Frontend Client (runs on http://localhost:3000)
+npm run client
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Option B: From Individual Folders
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Start Server:
+```bash
+cd server
+npm run dev      # or npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Start Client:
+```bash
+cd client
+npm start
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🗄️ Database Setup (Prisma + MySQL)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+From root directory:
+```bash
+# Generate Prisma Client
+npm run prisma:generate
 
-### Code Splitting
+# Seed 30+ Vedic Courses, Library Books, and Admin Account
+npm run prisma:seed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Launch Prisma Studio (Visual DB GUI)
+npm run prisma:studio
+```
 
-### Analyzing the Bundle Size
+**Default Test Accounts (from Seed):**
+- **Admin**: `admin@aryapathshala.com` / `Admin@Arya2025!`
+- **Student**: `student@aryapathshala.com` / `Student@Arya2025!`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 📦 Production Build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# Build React client for production (creates client/build/)
+npm run client:build
+```
+The generated `client/build/` directory can be deployed as static files directly to Hostinger's `public_html/`.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛡️ License
+Private project for Arya Pathshala. All rights reserved.
