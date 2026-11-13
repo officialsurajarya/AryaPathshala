@@ -4,7 +4,14 @@ import { api } from "../api/client";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    try {
+      const cached = localStorage.getItem("arya_user_info");
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
   const [token, setToken] = useState(localStorage.getItem("arya_auth_token"));
   const [loading, setLoading] = useState(true);
 
@@ -92,6 +99,11 @@ export const AuthProvider = ({ children }) => {
     } finally {
       localStorage.removeItem("arya_auth_token");
       localStorage.removeItem("arya_user_info");
+      localStorage.removeItem("arya_active_dashboard");
+      localStorage.removeItem("arya_admin_tab");
+      if (typeof window !== "undefined" && (window.location.hash.startsWith("#admin") || window.location.hash.startsWith("#dashboard"))) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
       setToken(null);
       setUser(null);
     }

@@ -10,6 +10,8 @@ const noticeRoutes = require("./routes/noticeRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const liveSessionRoutes = require("./routes/liveSessionRoutes");
+const doubtRoutes = require("./routes/doubtRoutes");
 
 const { generalLimiter } = require("./middleware/rateLimiter");
 const { notFoundHandler, errorHandler } = require("./middleware/errorMiddleware");
@@ -67,6 +69,8 @@ app.use("/api/notices", noticeRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/live-sessions", liveSessionRoutes);
+app.use("/api/doubts", doubtRoutes);
 
 // Error handling
 app.use(notFoundHandler);

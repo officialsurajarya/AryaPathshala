@@ -1,7 +1,8 @@
 /* Contact Us Section Styles */
 .contact {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--light-bg) 0%, var(--background-color) 25%, var(--light-bg) 50%, var(--background-color) 75%, var(--light-bg) 100%);
+    background: var(--gradient-to-top);
+    /* background: linear-gradient(135deg, var(--light-bg) 0%, var(--background-color) 25%, var(--light-bg) 50%, var(--background-color) 75%, var(--light-bg) 100%); */
     position: relative;
     overflow: hidden;
 }
@@ -915,6 +916,10 @@
 }
 
 @media (max-width: 576px) {
+    .contact {
+        padding: 30px 10px;
+    }
+
     .contact .section-header .section-title {
         font-size: 1.8rem;
     }
@@ -929,6 +934,7 @@
 
     .contact-card {
         padding: 20px 15px;
+        margin-bottom: 0px;
     }
 
     .contact-icon {

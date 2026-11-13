@@ -58,13 +58,19 @@ export const api = {
     apiRequest(endpoint, {
       ...options,
       method: "POST",
-      body: JSON.stringify(body),
+      ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     }),
   put: (endpoint, body, options) =>
     apiRequest(endpoint, {
       ...options,
       method: "PUT",
-      body: JSON.stringify(body),
+      ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+    }),
+  patch: (endpoint, body, options) =>
+    apiRequest(endpoint, {
+      ...options,
+      method: "PATCH",
+      ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     }),
   delete: (endpoint, options) =>
     apiRequest(endpoint, { ...options, method: "DELETE" }),

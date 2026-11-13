@@ -89,8 +89,19 @@ const updateStatus = async (req, res, next) => {
   }
 };
 
+const deleteMessage = async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    await prisma.contactMessage.delete({ where: { id } });
+    return successResponse(res, "शंका संदेश सफलतापूर्वक हटा दिया गया");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   submitMessage,
   getMessages,
   updateStatus,
+  deleteMessage,
 };

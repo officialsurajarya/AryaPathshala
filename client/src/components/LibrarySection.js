@@ -1,1027 +1,769 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Modal, Button, Form, InputGroup } from 'react-bootstrap';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faBook,
-    faBookOpen,
-    faScroll,
-    faSearch,
-    faDownload,
-    faEye,
-    faHeart,
-    faShare,
-    faStar,
-    faUser,
-    faCalendar,
-    faLanguage,
-    faFileAlt,
-    faTags,
-    faChevronDown,
-    faChevronUp
+  faBook,
+  faBookOpen,
+  faScroll,
+  faSearch,
+  faDownload,
+  faHeart,
+  faShareAlt,
+  faUser,
+  faLanguage,
+  faTimes,
+  faExternalLinkAlt,
+  faSpinner,
+  faCheck,
+  faFilePdf,
+  faLayerGroup,
+  faInfoCircle,
+  faChevronLeft,
+  faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import { api } from '../api/client';
+import DynamicBookCover from './DynamicBookCover';
+import './LibrarySection.css';
 
-const LibrarySection = ({ scrollToCategory }) => {
-    // const LibrarySection = () => {
-    const [activeCategory, setActiveCategory] = useState('all');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedBook, setSelectedBook] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [favorites, setFavorites] = useState(new Set());
-    const [expandedCards, setExpandedCards] = useState(new Set());
-    const [sortBy, setSortBy] = useState('title');
-    const [filterLanguage, setFilterLanguage] = useState('all');
+const CATEGORIES = [
+  { key: 'all', label: 'समग्र संग्रह', icon: faLayerGroup },
+  { key: 'mainBook', label: 'मूल ग्रन्थ', icon: faBook },
+  { key: 'VaykhyanBook', label: 'व्याख्यान ग्रन्थ', icon: faBookOpen },
+  { key: 'VidhwatLekh', label: 'विद्वत् लेख व शोध', icon: faScroll },
+];
 
-    useEffect(() => {
-        if (scrollToCategory && ['mainBook', 'VaykhyanBook', 'VidhwatLekh'].includes(scrollToCategory)) {
-            setActiveCategory(scrollToCategory);
-            const section = document.getElementById('library');
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [scrollToCategory]);
+export default function LibrarySection({ scrollToCategory }) {
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('title');
+  const [filterLanguage, setFilterLanguage] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage, setBooksPerPage] = useState(4);
 
-    // Sample library data
-    const libraryData = {
-        mainBooks: [
-            {
-                id: 1,
-                title: 'ऋग्वेद संहिता',
-                titleEn: 'Rigveda Samhita',
-                author: 'ऋषि मण्डल',
-                authorEn: 'Rishi Mandal',
-                category: 'mainBook',
-                language: 'संस्कृत',
-                description: 'वैदिक साहित्य का आदि ग्रन्थ, चार वेदों में प्रथम एवं प्राचीनतम',
-                descriptionEn: 'The first and oldest of the four Vedas, foundational text of Vedic literature',
-                pages: 1028,
-                year: 'प्राचीन काल',
-                rating: 5,
-                views: 15420,
-                downloads: 8932,
-                tags: ['वेद', 'मन्त्र', 'यज्ञ', 'देवता'],
-                fileSize: '45 MB',
-                format: 'PDF',
-                image: '/images/Rigveda.jpg'
-            },
-            {
-                id: 2,
-                title: 'श्रीमद्भगवद्गीता',
-                titleEn: 'Shrimad Bhagavad Gita',
-                author: 'महर्षि वेदव्यास',
-                authorEn: 'Maharshi Vedvyas',
-                category: 'mainBook',
-                language: 'संस्कृत',
-                description: 'कर्म, भक्ति और ज्ञान योग का अमूल्य ग्रन्थ, जीवन दर्शन की सम्पूर्ण शिक्षा',
-                descriptionEn: 'Invaluable text on Karma, Bhakti and Gyan Yoga, complete teaching of life philosophy',
-                pages: 700,
-                year: 'द्वापर युग',
-                rating: 5,
-                views: 25670,
-                downloads: 15432,
-                tags: ['गीता', 'योग', 'धर्म', 'कृष्ण'],
-                fileSize: '28 MB',
-                format: 'PDF',
-                image: '/images/BhagavadGita.jpg'
-            },
-            {
-                id: 3,
-                title: 'उपनिषद् संग्रह',
-                titleEn: 'Upanishad Collection',
-                author: 'विविध ऋषिगण',
-                authorEn: 'Various Rishis',
-                category: 'mainBook',
-                language: 'संस्कृत',
-                description: 'वेदान्त दर्शन के मूलभूत ग्रन्थ, आत्मा और ब्रह्म की गहन विवेचना',
-                descriptionEn: 'Fundamental texts of Vedanta philosophy, deep analysis of Atman and Brahman',
-                pages: 892,
-                year: 'वैदिक काल',
-                rating: 5,
-                views: 12340,
-                downloads: 7890,
-                tags: ['उपनिषद्', 'वेदान्त', 'आत्मा', 'ब्रह्म'],
-                fileSize: '52 MB',
-                format: 'PDF',
-                image: '/images/Ishopanishad.jpg'
-            }
-        ],
-        commentaryBooks: [
-            {
-                id: 4,
-                title: 'भगवद्गीता भाष्य',
-                titleEn: 'Bhagavad Gita Bhashya',
-                author: 'आचार्य शङ्कर',
-                authorEn: 'Acharya Shankara',
-                category: 'VaykhyanBook',
-                language: 'संस्कृत',
-                description: 'श्रीमद्भगवद्गीता की आद्य शङ्कराचार्य कृत प्रामाणिक व्याख्या',
-                descriptionEn: 'Authentic commentary on Bhagavad Gita by Adi Shankaracharya',
-                pages: 456,
-                year: '8वीं शताब्दी',
-                rating: 4.8,
-                views: 8920,
-                downloads: 5430,
-                tags: ['भाष्य', 'शङ्कर', 'अद्वैत', 'वेदान्त'],
-                fileSize: '35 MB',
-                format: 'PDF',
-                image: '/images/BhagavadGita.jpg'
-            },
-            {
-                id: 5,
-                title: 'ऋग्वेद पदपाठ भाष्य',
-                titleEn: 'Rigveda Padapatha Bhashya',
-                author: 'सायणाचार्य',
-                authorEn: 'Sayanacharya',
-                category: 'VaykhyanBook',
-                language: 'संस्कृत',
-                description: 'ऋग्वेद मन्त्रों की विस्तृत एवं प्रामाणिक व्याख्या',
-                descriptionEn: 'Detailed and authentic commentary on Rigveda mantras',
-                pages: 1234,
-                year: '14वीं शताब्दी',
-                rating: 4.9,
-                views: 6780,
-                downloads: 4210,
-                tags: ['ऋग्वेद', 'पदपाठ', 'सायण', 'मन्त्र'],
-                fileSize: '78 MB',
-                format: 'PDF',
-                image: '/images/Rigveda.jpg'
-            }
-        ],
-        researchPapers: [
-            {
-                id: 6,
-                title: 'वैदिक संस्कृति में नारी की स्थिति',
-                titleEn: 'Status of Women in Vedic Culture',
-                author: 'डॉ. सुमित्रा शर्मा',
-                authorEn: 'Dr. Sumitra Sharma',
-                category: 'VidhwatLekh',
-                language: 'हिन्दी',
-                description: 'वैदिक काल में महिलाओं की सामाजिक, धार्मिक और शैक्षणिक स्थिति का विश्लेषण',
-                descriptionEn: 'Analysis of social, religious and educational status of women in Vedic period',
-                pages: 85,
-                year: '2023',
-                rating: 4.5,
-                views: 3240,
-                downloads: 1890,
-                tags: ['शोध', 'नारी', 'वैदिक', 'समाज'],
-                fileSize: '12 MB',
-                format: 'PDF',
-                image: '/images/Manusmriti.jpg'
-            },
-            {
-                id: 7,
-                title: 'संस्कृत व्याकरण में छन्द विज्ञान',
-                titleEn: 'Prosody in Sanskrit Grammar',
-                author: 'प्रो. राजेश पाण्डेय',
-                authorEn: 'Prof. Rajesh Pandey',
-                category: 'VidhwatLekh',
-                language: 'संस्कृत-हिन्दी',
-                description: 'संस्कृत काव्य में छन्द की महत्ता एवं व्याकरणिक संरचना का अध्ययन',
-                descriptionEn: 'Study of importance and grammatical structure of prosody in Sanskrit poetry',
-                pages: 120,
-                year: '2024',
-                rating: 4.7,
-                views: 2876,
-                downloads: 1654,
-                tags: ['व्याकरण', 'छन्द', 'काव्य', 'पिङ्गल'],
-                fileSize: '18 MB',
-                format: 'PDF',
-                image: '/images/VyakaranVedang.jpg'
-            }
-        ]
-    };
+  // Modal & Selection State
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [copyToast, setCopyToast] = useState(false);
 
-    // Flatten all books for search and filter
-    const allBooks = [
-        ...libraryData.mainBooks,
-        ...libraryData.commentaryBooks,
-        ...libraryData.researchPapers
-    ];
-
-    // Filter and search logic – show only 1st of each type in 'all' filter
-    let filteredBooks;
-    if (activeCategory === 'all') {
-        // Only take first book of each type that matches search and language
-        const bookGroups = [libraryData.mainBooks, libraryData.commentaryBooks, libraryData.researchPapers];
-        filteredBooks = bookGroups
-            .map(group => group.find(book => {
-                const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    book.titleEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    book.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-                const matchesLanguage = filterLanguage === 'all' || book.language.includes(filterLanguage);
-                return matchesSearch && matchesLanguage;
-            }))
-            .filter(Boolean); // Remove undefined if not found in group
-    } else {
-        filteredBooks = allBooks.filter(book => {
-            const matchesCategory = book.category === activeCategory;
-            const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                book.titleEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                book.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-            const matchesLanguage = filterLanguage === 'all' || book.language.includes(filterLanguage);
-            return matchesCategory && matchesSearch && matchesLanguage;
-        });
+  // Favorites in localStorage
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const saved = localStorage.getItem('arya_fav_books');
+      return saved ? new Set(JSON.parse(saved)) : new Set();
+    } catch {
+      return new Set();
     }
+  });
 
-    // Sort books
-    const sortedBooks = [...filteredBooks].sort((a, b) => {
-        switch (sortBy) {
-            case 'title':
-                return a.title.localeCompare(b.title);
-            case 'author':
-                return a.author.localeCompare(b.author);
-            case 'rating':
-                return b.rating - a.rating;
-            case 'views':
-                return b.views - a.views;
-            case 'downloads':
-                return b.downloads - a.downloads;
-            default:
-                return 0;
+  // Save favorites to localStorage
+  const toggleFavorite = (bookId, e) => {
+    if (e) e.stopPropagation();
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      if (next.has(bookId)) {
+        next.delete(bookId);
+      } else {
+        next.add(bookId);
+      }
+      try {
+        localStorage.setItem('arya_fav_books', JSON.stringify([...next]));
+      } catch (err) {
+        console.warn('Favorite storage error:', err);
+      }
+      return next;
+    });
+  };
+
+  // 1. Live DB Fetch from MySQL
+  const fetchLiveBooks = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await api.get('/library?limit=150&all=false');
+      if (res?.data?.books && Array.isArray(res.data.books)) {
+        setBooks(res.data.books);
+      } else {
+        setBooks([]);
+      }
+    } catch (err) {
+      console.warn('[LibrarySection] DB fetch error:', err.message);
+      setBooks([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLiveBooks();
+
+    // Auto-sync when Admin adds, updates, or deletes books in the Admin Panel
+    window.addEventListener('libraryUpdated', fetchLiveBooks);
+    return () => {
+      window.removeEventListener('libraryUpdated', fetchLiveBooks);
+    };
+  }, [fetchLiveBooks]);
+
+  // Handle category navigation if passed via props
+  useEffect(() => {
+    if (scrollToCategory && ['mainBook', 'VaykhyanBook', 'VidhwatLekh'].includes(scrollToCategory)) {
+      setActiveCategory(scrollToCategory);
+      const section = document.getElementById('library');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [scrollToCategory]);
+
+  // Dynamic counts per category
+  const categoryCounts = useMemo(() => {
+    const counts = { all: books.length, mainBook: 0, VaykhyanBook: 0, VidhwatLekh: 0 };
+    books.forEach((b) => {
+      if (counts[b.category] !== undefined) {
+        counts[b.category]++;
+      }
+    });
+    return counts;
+  }, [books]);
+
+  // Search & Filter & Sort Pipeline
+  const filteredAndSortedBooks = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+
+    const result = books.filter((book) => {
+      // Category filter
+      if (activeCategory !== 'all' && book.category !== activeCategory) {
+        return false;
+      }
+
+      // Language filter
+      if (filterLanguage !== 'all') {
+        const lang = (book.language || '').toLowerCase();
+        if (!lang.includes(filterLanguage.toLowerCase())) return false;
+      }
+
+      // Search query filter
+      if (q) {
+        const matchTitle = (book.title || '').toLowerCase().includes(q);
+        const matchTitleEn = (book.titleEn || '').toLowerCase().includes(q);
+        const matchAuthor = (book.author || '').toLowerCase().includes(q);
+        const matchAuthorEn = (book.authorEn || '').toLowerCase().includes(q);
+        const matchTags = (book.tags || '').toLowerCase().includes(q);
+        const matchDesc = (book.description || '').toLowerCase().includes(q);
+        if (!matchTitle && !matchTitleEn && !matchAuthor && !matchAuthorEn && !matchTags && !matchDesc) {
+          return false;
         }
+      }
+
+      return true;
     });
 
-    const toggleFavorite = (bookId) => {
-        const newFavorites = new Set(favorites);
-        if (newFavorites.has(bookId)) {
-            newFavorites.delete(bookId);
-        } else {
-            newFavorites.add(bookId);
-        }
-        setFavorites(newFavorites);
-    };
+    // Sorting (Rating removed)
+    return result.sort((a, b) => {
+      switch (sortBy) {
+        case 'author':
+          return (a.author || '').localeCompare(b.author || '', 'hi');
+        case 'latest':
+          return (b.id || 0) - (a.id || 0);
+        case 'title':
+        default:
+          return (a.title || '').localeCompare(b.title || '', 'hi');
+      }
+    });
+  }, [books, activeCategory, filterLanguage, searchTerm, sortBy]);
 
-    const toggleExpanded = (cardId) => {
-        const newExpanded = new Set(expandedCards);
-        if (newExpanded.has(cardId)) {
-            newExpanded.delete(cardId);
-        } else {
-            newExpanded.add(cardId);
-        }
-        setExpandedCards(newExpanded);
-    };
+  // Reset to page 1 on filter, search or per-page changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory, filterLanguage, sortBy, booksPerPage]);
 
-    const handleBookClick = (book) => {
-        setSelectedBook(book);
-        setShowModal(true);
-    };
+  const effectivePerPage = booksPerPage === 'all' ? 9999 : Number(booksPerPage);
+  const totalBooksCount = filteredAndSortedBooks.length;
+  const totalPages = Math.max(1, Math.ceil(totalBooksCount / effectivePerPage));
+  const startIndex = (currentPage - 1) * effectivePerPage;
 
-    const renderStars = (rating) => {
-        return [...Array(5)].map((_, i) => (
-            <FontAwesomeIcon
-                key={i}
-                icon={faStar}
-                className={i < Math.floor(rating) ? "text-warning" : "text-muted"}
-                style={{ fontSize: '0.8rem' }}
+  const paginatedBooks = useMemo(() => {
+    return filteredAndSortedBooks.slice(startIndex, startIndex + effectivePerPage);
+  }, [filteredAndSortedBooks, startIndex, effectivePerPage]);
+
+  // Pagination numbers strictly following: First page number ... current Page no. ... last page no.
+  // Example: Total page 20 current page 8 => < 1 ... 8 ... 20 >
+  // Example: Total page 4 current page 3  => < 1 ... 3 ... 4 >
+  const paginationItems = useMemo(() => {
+    if (totalPages <= 1) return [1];
+    if (totalPages === 2) return [1, 2];
+
+    // When on page 1: 1 ... last
+    if (currentPage === 1) {
+      return [1, 'dots-end', totalPages];
+    }
+
+    // When on last page: 1 ... last
+    if (currentPage === totalPages) {
+      return [1, 'dots-start', totalPages];
+    }
+
+    // When on any intermediate page (e.g. 1 ... current ... total)
+    return [1, 'dots-start', currentPage, 'dots-end', totalPages];
+  }, [currentPage, totalPages]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
+    setCurrentPage(newPage);
+    const el = document.getElementById('library-books-grid') || document.getElementById('library');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Open Book Modal & Record View
+  const handleOpenBookModal = (book) => {
+    setSelectedBook(book);
+    setShowModal(true);
+    setCopyToast(false);
+
+    // Call View counter endpoint in DB (non-blocking)
+    if (book?.id) {
+      api.post(`/library/${book.id}/view`)
+        .then((res) => {
+          if (res?.data?.views) {
+            setBooks((prev) =>
+              prev.map((b) => (b.id === book.id ? { ...b, views: res.data.views } : b))
+            );
+            setSelectedBook((prev) => (prev ? { ...prev, views: res.data.views } : prev));
+          }
+        })
+        .catch(() => { });
+    }
+  };
+
+  // Handle Download action
+  const handleDownloadBook = (book, e) => {
+    if (e) e.stopPropagation();
+    if (!book) return;
+
+    // Call Download counter in DB
+    if (book.id) {
+      api.post(`/library/${book.id}/download`)
+        .then((res) => {
+          if (res?.data?.downloads) {
+            setBooks((prev) =>
+              prev.map((b) => (b.id === book.id ? { ...b, downloads: res.data.downloads } : b))
+            );
+            if (selectedBook && selectedBook.id === book.id) {
+              setSelectedBook((prev) => ({ ...prev, downloads: res.data.downloads }));
+            }
+          }
+        })
+        .catch(() => { });
+    }
+
+    // Trigger download or open PDF link
+    const link = book.pdfUrl || 'https://archive.org/details/RigVedaWithSayanaBhashya';
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
+  // Handle Share action
+  const handleShareBook = (book) => {
+    const shareText = `${book.title} — आर्य पाठशाला वैदिक डिजिटल पुस्तकालय`;
+    const shareUrl = `${window.location.origin}#library`;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      setCopyToast(true);
+      setTimeout(() => setCopyToast(false), 2500);
+    }
+  };
+
+  const getCategoryLabel = (cat) => {
+    switch (cat) {
+      case 'mainBook':
+        return 'मूल ग्रन्थ';
+      case 'VaykhyanBook':
+        return 'व्याख्यान ग्रन्थ';
+      case 'VidhwatLekh':
+        return 'विद्वत् शोध पत्र';
+      default:
+        return 'वैदिक ग्रन्थ';
+    }
+  };
+
+  return (
+    <section className="library-section" id="library" aria-label="आर्य पाठशाला डिजिटल पुस्तकालय">
+      {/* Background Sanskrit Calligraphy Decor */}
+      <div className="library-bg-decor" aria-hidden="true">ॐ</div>
+
+      <Container className="library-container">
+        {/* Section Header */}
+        <div className="library-header">
+          <div className="library-heading-badge">
+            <FontAwesomeIcon icon={faBookOpen} />
+            <span>आर्ष डिजिटल ग्रन्थागार</span>
+          </div>
+
+          <h2 className="library-title">
+            पुस्तकालय संग्रह
+            <span className="library-title-underline" />
+          </h2>
+
+          <p className="library-subtitle">
+            प्राचीन आर्ष एवं वैदिक ग्रन्थों से लेकर आधुनिक शास्त्रीय शोध पत्रों तक का समृद्ध डिजिटल संग्रह।
+            ज्ञान की अनमोल निधि को आपके अध्ययन हेतु सहेज कर प्रस्तुत किया गया है।
+          </p>
+
+          {/* Library Features Strip */}
+          <div className="library-features-strip">
+            <div className="library-feature-item">
+              <span className="feature-icon">📜</span>
+              <div className="feature-text">
+                <strong>प्रामाणिक आर्ष ग्रन्थ</strong>
+                <span>वेद, उपनिषद्, दर्शन व शोध</span>
+              </div>
+            </div>
+            <div className="library-feature-item">
+              <span className="feature-icon">📥</span>
+              <div className="feature-text">
+                <strong>निःशुल्क PDF डाउनलोड</strong>
+                <span>सम्पूर्ण प्रतियां एक-क्लिक में</span>
+              </div>
+            </div>
+            <div className="library-feature-item">
+              <span className="feature-icon">👁️</span>
+              <div className="feature-text">
+                <strong>डिजिटल पठन कक्ष</strong>
+                <span>ऑनलाइन अध्ययन व सन्दर्भ</span>
+              </div>
+            </div>
+            <div className="library-feature-item">
+              <span className="feature-icon">🔍</span>
+              <div className="feature-text">
+                <strong>स्मार्ट विषय खोज</strong>
+                <span>शीर्षक, मन्त्र व लेखक फ़िल्टर</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Category Tabs */}
+        <div className="library-categories-wrapper">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              type="button"
+              className={`library-cat-tab ${activeCategory === cat.key ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.key)}
+            >
+              <FontAwesomeIcon icon={cat.icon} />
+              <span>{cat.label}</span>
+              <span className="tab-count">{categoryCounts[cat.key] || 0}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Search & Filter Toolbar */}
+        <div className="library-toolbar">
+          {/* Search Box */}
+          <div className="library-search-box">
+            <FontAwesomeIcon icon={faSearch} className="library-search-icon" />
+            <input
+              type="text"
+              className="library-search-input"
+              placeholder="ग्रन्थ, लेखक, विषय या मन्त्र खोजें..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-        ));
-    };
+            {searchTerm && (
+              <button
+                type="button"
+                className="library-search-clear"
+                onClick={() => setSearchTerm('')}
+                title="खोज रिक्त करें"
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            )}
+          </div>
 
-    return (
-        <section className='py-5 library' id="library" style={{
-            background: 'var(--gradient-to-top)',
-            paddingBottom: '80px'
-        }}>
-            <Container>
-                {/* Section Header */}
-                <div className="text-center mb-5 ">
-                    <h1 className='LibraryHeading' style={{
-                        fontFamily: "'Tiro Devanagari Sanskrit', serif",
-                        fontSize: 'clamp(2.5rem, 6vw, 3.5rem)',
-                        fontWeight: '600',
-                        color: 'var(--primary-color)',
-                        marginBottom: '1rem',
-                        background: 'linear-gradient(135deg, var(--primary-color), var(--main-color))',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        position: 'absolute',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                    }}>
-                        पुस्तकालय संग्रह
-                        <span style={{
-                            position: 'absolute',
-                            bottom: '0',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            width: '40%',            // Control underline length here
-                            height: '4px',           // Thickness of underline
-                            background: 'linear-gradient(135deg, var(--secondary-color),var(--primary-color))',
-                            borderRadius: '2px'
-                        }} />
-                    </h1>
-                    <br />
-                    <br />
-                    <br />
-                    <Row>
-                        <Col lg={6} md={10} className="mx-auto">
-                            <p className='subtitle' style={{
-                                // fontSize: '1.2rem',
-                                margin: '0 auto !important',
-                                lineHeight: '1.6',
-                            }}>
-                                प्राचीन ग्रन्थों से लेकर आधुनिक शोध पत्रों तक का विस्तृत संग्रह।
-                                ज्ञान की अनमोल निधि को डिजिटल रूप में संजोया गया है।
-                            </p>
-                        </Col>
-                    </Row>
+          {/* Dropdown Filters */}
+          <div className="library-dropdowns">
+            {/* Language Filter */}
+            <div className="library-select-wrapper">
+              <FontAwesomeIcon icon={faLanguage} />
+              <select
+                className="library-select"
+                value={filterLanguage}
+                onChange={(e) => setFilterLanguage(e.target.value)}
+                aria-label="भाषा फ़िल्टर"
+              >
+                <option value="all">समस्त भाषाएँ</option>
+                <option value="संस्कृत">संस्कृत</option>
+                <option value="हिन्दी">हिन्दी</option>
+                <option value="संस्कृत-हिन्दी">संस्कृत-हिन्दी</option>
+              </select>
+            </div>
 
-                </div>
+            {/* Sort Dropdown (Rating removed) */}
+            <div className="library-select-wrapper">
+              <span>क्रम:</span>
+              <select
+                className="library-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                aria-label="क्रमबद्ध करें"
+              >
+                <option value="title">वर्णमाला (अ - ह)</option>
+                <option value="author">लेखक नाम</option>
+                <option value="latest">नवीनतम ग्रन्थ</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-                {/* Search and Filter Controls */}
-                <Row className="mb-4 justify-content-between">
-                    <Col lg={6} md={12} className="mb-3 ">
-                        <InputGroup className="LibrarySearchBar">
-                            <InputGroup.Text style={{
-                                background: 'white', border: '1px solid var(--border-color, #e2e8f0)',
-                                borderRadius: '25px 0 0 25px'
-                            }}>
-                                <FontAwesomeIcon icon={faSearch} style={{ color: 'var(--ash)' }} />
-                            </InputGroup.Text>
-                            <Form.Control
-                                type="text"
-                                placeholder="पुस्तक, लेखक या विषय खोजें..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{
-                                    border: '1px solid var(--border-color, #e2e8f0)',
-                                    borderLeft: 'none',
-                                    fontSize: '1rem',
-                                    padding: '0.75rem',
-                                    borderRadius: '0 25px 25px 0'
-                                }}
-                            />
-                        </InputGroup>
-                    </Col>
+        {/* Active View & Pagination Stats Bar */}
+        <div className="library-view-stats-row">
+          <div className="library-count-text">
+            <FontAwesomeIcon icon={faBookOpen} />
+            <span>
+              प्रदर्शित ग्रन्थ: <strong>{totalBooksCount === 0 ? 0 : `${startIndex + 1}–${Math.min(startIndex + effectivePerPage, totalBooksCount)}`}</strong> / कुल <strong>{totalBooksCount}</strong>
+            </span>
+          </div>
 
-                    <Col lg={4} md={12}>
-                        <Row className="g-2 LibraryFilterBar">
-                            <Col xs={4} >
-                                <Form.Select
-                                    value={activeCategory}
-                                    onChange={(e) => setActiveCategory(e.target.value)}
-                                    style={{
-                                        border: '1px solid var(--primary-color)',
-                                        fontSize: '0.9rem',
-                                        padding: '0.75rem',
-                                        borderRadius: '20px 0',
-                                        backgroundColor: 'var(--light-bg)'
+          <div className="library-per-page-selector">
+            <span className="per-page-label">प्रति पृष्ठ देखें:</span>
+            {[4, 8, 12, 'all'].map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                className={`btn-per-page ${booksPerPage === opt ? 'active' : ''}`}
+                onClick={() => {
+                  setBooksPerPage(opt);
+                  setCurrentPage(1);
+                }}
+              >
+                {opt === 'all' ? 'सभी' : opt}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                                    }}
-                                >
-                                    <option value="all">सभी श्रेणियाँ</option>
-                                    <option value="mainBook">मूल ग्रन्थ</option>
-                                    <option value="VaykhyanBook">व्याख्यान ग्रन्थ</option>
-                                    <option value="VidhwatLekh">शोध पत्र</option>
-                                </Form.Select>
-                            </Col>
+        {/* Books Grid */}
+        {loading ? (
+          <div className="text-center py-5">
+            <FontAwesomeIcon icon={faSpinner} spin size="2x" className="text-secondary mb-3" />
+            <p className="text-muted fw-bold">पुस्तकालय ग्रन्थ लोड हो रहे हैं...</p>
+          </div>
+        ) : filteredAndSortedBooks.length > 0 ? (
+          <>
+            <div className="library-books-grid" id="library-books-grid">
+              {paginatedBooks.map((book) => {
+                const isFav = favorites.has(book.id);
 
-                            <Col xs={4}>
-                                <Form.Select
-                                    value={filterLanguage}
-                                    onChange={(e) => setFilterLanguage(e.target.value)}
-                                    style={{
-                                        border: '1px solid var(--primary-color)',
-                                        fontSize: '0.9rem',
-                                        padding: '0.75rem',
-                                        borderRadius: '20px 0',
-                                        backgroundColor: 'var(--light-bg)'
+                return (
+                  <div key={book.id} className="library-book-card">
+                    {/* Book Cover Container with Integrated Badges */}
+                    <div
+                      className="library-card-cover-stage"
+                      onClick={() => handleOpenBookModal(book)}
+                      role="button"
+                      tabIndex={0}
+                      title={`${book.title} का विस्तृत विवरण देखें`}
+                    >
+                      {/* Category Badge */}
+                      <span className="library-card-badge">
+                        {getCategoryLabel(book.category)}
+                      </span>
 
-                                    }}
-                                >
-                                    <option value="all">सभी भाषाएँ</option>
-                                    <option value="संस्कृत">संस्कृत</option>
-                                    <option value="हिन्दी">हिन्दी</option>
-                                </Form.Select>
-                            </Col>
+                      {/* Favorite Bookmark Button */}
+                      <button
+                        type="button"
+                        className={`library-fav-btn ${isFav ? 'favorited' : ''}`}
+                        onClick={(e) => toggleFavorite(book.id, e)}
+                        title={isFav ? 'पसंदीदा से हटाएं' : 'पसंदीदा में जोड़ें'}
+                      >
+                        <FontAwesomeIcon icon={faHeart} />
+                      </button>
 
-                            <Col xs={4}>
-                                <Form.Select
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                    style={{
-                                        border: '1px solid var(--primary-color)',
-                                        fontSize: '0.9rem',
-                                        padding: '0.75rem',
-                                        borderRadius: '20px 0',
-                                        backgroundColor: 'var(--light-bg)'
-
-
-                                    }}
-                                >
-                                    <option value="title">शीर्षक से</option>
-                                    <option value="author">लेखक से</option>
-                                    <option value="rating">रेटिंग से</option>
-                                    <option value="views">लोकप्रियता से</option>
-                                    <option value="downloads">डाउनलोड से</option>
-                                </Form.Select>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-
-                {/* Results Summary */}
-                <div className="mb-4">
-                    <p style={{ color: 'var(--ash)', fontSize: '0.95rem' }}>
-                        <strong>{sortedBooks.length}</strong> पुस्तकें मिलीं
-                        {searchTerm && ` "${searchTerm}" के लिए`}
-                        {activeCategory !== 'all' && ` ${activeCategory === 'mainBook' ? 'मूल ग्रन्थ' :
-                            activeCategory === 'VaykhyanBook' ? 'व्याख्यान ग्रन्थ' : 'शोध पत्र'} श्रेणी में`}
-                    </p>
-                </div>
-
-                {/* Books Grid */}
-                <Row className="g-4">
-                    {sortedBooks.map((book) => (
-                        <Col key={book.id} lg={4} md={6} sm={12}>
-                            <Card className="h-100 shadow-sm hover-card"
-                                style={{
-                                    border: '1px solid rgba(212, 175, 55, 0.2)',
-                                    borderRadius: '15px',
-                                    overflow: 'hidden',
-                                    transition: 'all 0.3s ease',
-                                    background: 'white'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(-5px)';
-                                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(199, 54, 89, 0.15)';
-                                    e.currentTarget.style.borderColor = 'var(--secondary-color)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                                    e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.2)';
-                                }}
-                            >
-                                <div className="position-relative">
-                                    <div style={{
-                                        background: 'linear-gradient(135deg, var(--primary-color), var(--main-color))',
-                                        height: '200px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'white',
-                                        fontSize: '3rem'
-                                    }}>
-                                        <FontAwesomeIcon
-                                            icon={book.category === 'mainBook' ? faBook :
-                                                book.category === 'VaykhyanBook' ? faBookOpen : faScroll}
-                                        />
-                                    </div>
-
-                                    {/* Category Badge */}
-                                    <div className="position-absolute top-0 start-0 m-2">
-                                        <span className="badge rounded-pill px-3 py-1" style={{
-                                            background: 'rgba(255, 255, 255, 0.9)',
-                                            color: 'var(--primary-color)',
-                                            fontSize: '0.7rem',
-                                            fontWeight: '600'
-                                        }}>
-                                            {book.category === 'mainBook' ? 'मूल ग्रन्थ' :
-                                                book.category === 'VaykhyanBook' ? 'व्याख्यान' : 'शोध पत्र'}
-                                        </span>
-                                    </div>
-
-                                    {/* Favorite Button */}
-                                    <div className="position-absolute top-0 end-0 m-2">
-                                        <button
-                                            className="btn btn-sm rounded-circle"
-                                            style={{
-                                                background: 'rgba(255, 255, 255, 0.9)',
-                                                border: 'none',
-                                                width: '35px',
-                                                height: '35px'
-                                            }}
-                                            onClick={() => toggleFavorite(book.id)}
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faHeart}
-                                                style={{
-                                                    color: favorites.has(book.id) ? 'var(--primary-color)' : 'var(--ash)'
-                                                }}
-                                            />
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <Card.Body className="p-4">
-                                    <div className="mb-3">
-                                        <h5 style={{
-                                            fontFamily: "'Tiro Devanagari Sanskrit', serif",
-                                            fontWeight: '600',
-                                            color: 'var(--text-color)',
-                                            marginBottom: '0.5rem',
-                                            lineHeight: '1.3'
-                                        }}>
-                                            {book.title}
-                                        </h5>
-                                        <p style={{
-                                            fontSize: '0.85rem',
-                                            color: 'var(--ash)',
-                                            fontStyle: 'italic',
-                                            marginBottom: '0.5rem'
-                                        }}>
-                                            {book.titleEn}
-                                        </p>
-
-                                        <div className="d-flex align-items-center gap-2 mb-2">
-                                            <FontAwesomeIcon icon={faUser} style={{ color: 'var(--ash)', fontSize: '0.8rem' }} />
-                                            <span style={{ fontSize: '0.9rem', color: 'var(--text-color)' }}>
-                                                {book.author}
-                                            </span>
-                                        </div>
-
-                                        <div className="d-flex align-items-center gap-2 mb-2">
-                                            <FontAwesomeIcon icon={faLanguage} style={{ color: 'var(--ash)', fontSize: '0.8rem' }} />
-                                            <span style={{ fontSize: '0.85rem', color: 'var(--ash)' }}>
-                                                {book.language}
-                                            </span>
-                                            <span className="mx-2">•</span>
-                                            <FontAwesomeIcon icon={faFileAlt} style={{ color: 'var(--ash)', fontSize: '0.8rem' }} />
-                                            <span style={{ fontSize: '0.85rem', color: 'var(--ash)' }}>
-                                                {book.pages} पृष्ठ
-                                            </span>
-                                        </div>
-
-                                        <div className="d-flex align-items-center gap-1 mb-2">
-                                            {renderStars(book.rating)}
-                                            <span style={{ fontSize: '0.8rem', color: 'var(--ash)', marginLeft: '0.5rem' }}>
-                                                ({book.rating})
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <p style={{
-                                            fontSize: '0.9rem',
-                                            color: 'var(--text-color)',
-                                            lineHeight: '1.5',
-                                            marginBottom: '0.5rem'
-                                        }}>
-                                            {expandedCards.has(book.id) ?
-                                                book.description :
-                                                `${book.description.substring(0, 80)}${book.description.length > 80 ? '...' : ''}`
-                                            }
-                                        </p>
-
-                                        {book.description.length > 80 && (
-                                            <button
-                                                className="btn btn-link p-0"
-                                                style={{
-                                                    fontSize: '0.8rem',
-                                                    color: 'var(--primary-color)',
-                                                    textDecoration: 'none'
-                                                }}
-                                                onClick={() => toggleExpanded(book.id)}
-                                            >
-                                                {expandedCards.has(book.id) ? 'कम दिखाएं' : 'और पढ़ें'}
-                                                <FontAwesomeIcon
-                                                    icon={expandedCards.has(book.id) ? faChevronUp : faChevronDown}
-                                                    className="ms-1"
-                                                />
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    {/* Tags */}
-                                    <div className="mb-3">
-                                        <div className="d-flex flex-wrap gap-1">
-                                            {book.tags.slice(0, 3).map((tag, index) => (
-                                                <span key={index} className="badge rounded-pill px-2 py-1" style={{
-                                                    background: 'rgba(168, 198, 108, 0.15)',
-                                                    color: 'var(--accent-color)',
-                                                    fontSize: '0.7rem',
-                                                    fontWeight: '500',
-                                                    border: '1px solid rgba(168, 198, 108, 0.3)'
-                                                }}>
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                            {book.tags.length > 3 && (
-                                                <span className="badge rounded-pill px-2 py-1" style={{
-                                                    background: 'rgba(178, 178, 178, 0.15)',
-                                                    color: 'var(--ash)',
-                                                    fontSize: '0.7rem'
-                                                }}>
-                                                    +{book.tags.length - 3}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* Stats Row */}
-                                    <div className="d-flex justify-content-between align-items-center mb-3 text-muted" style={{ fontSize: '0.8rem' }}>
-                                        <div className="d-flex align-items-center gap-1">
-                                            <FontAwesomeIcon icon={faEye} />
-                                            <span>{book.views.toLocaleString()}</span>
-                                        </div>
-                                        <div className="d-flex align-items-center gap-1">
-                                            <FontAwesomeIcon icon={faDownload} />
-                                            <span>{book.downloads.toLocaleString()}</span>
-                                        </div>
-                                        <div>
-                                            <span>{book.fileSize}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Action Buttons */}
-                                    <div className="d-grid gap-2">
-                                        <div className="btn-group">
-                                            <button
-                                                className="btn"
-                                                style={{
-                                                    background: 'linear-gradient(135deg, var(--primary-color), var(--main-color))',
-                                                    border: 'none',
-                                                    color: 'white',
-                                                    fontWeight: '600',
-                                                    borderRadius: '25px 0 0 25px'
-                                                }}
-                                                onClick={() => handleBookClick(book)}
-                                            >
-                                                <FontAwesomeIcon icon={faEye} className="me-2" />
-                                                पूर्वावलोकन
-                                            </button>
-                                            <button
-                                                className="btn"
-                                                style={{
-                                                    background: 'var(--secondary-color)',
-                                                    border: 'none',
-                                                    color: 'white',
-                                                    fontWeight: '600',
-                                                    borderRadius: '0 25px 25px 0'
-                                                }}
-                                            >
-                                                <FontAwesomeIcon icon={faDownload} className="me-2" />
-                                                डाउनलोड
-                                            </button>
-                                        </div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-
-                {/* No Results */}
-                {sortedBooks.length === 0 && (
-                    <div className="text-center py-5">
-                        <FontAwesomeIcon
-                            icon={faBook}
-                            style={{ fontSize: '4rem', color: 'var(--ash)', marginBottom: '2rem' }}
-                        />
-                        <h3 style={{ color: 'var(--text-color)', marginBottom: '1rem' }}>
-                            कोई पुस्तक नहीं मिली
-                        </h3>
-                        <p style={{ color: 'var(--ash)' }}>
-                            कृपया अपनी खोज को संशोधित करें या फ़िल्टर बदलें
-                        </p>
+                      {/* Dynamic 3D Book Cover fills natural space */}
+                      <DynamicBookCover
+                        title={book.title}
+                        alt={book.title}
+                        className="library-card-cover-img"
+                      />
                     </div>
-                )}
 
-                {/* Book Detail Modal */}
-                <Modal
-                    show={showModal}
-                    onHide={() => setShowModal(false)}
-                    size="lg"
-                    centered
-                >
-                    {selectedBook && (
-                        <>
-                            <Modal.Header closeButton style={{ borderBottom: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                                <Modal.Title style={{
-                                    fontFamily: "'Tiro Devanagari Sanskrit', serif",
-                                    color: 'var(--primary-color)'
-                                }}>
-                                    {selectedBook.title}
-                                </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Row>
-                                    <Col md={4} className="text-center mb-3">
-                                        <div style={{
-                                            background: 'linear-gradient(135deg, var(--primary-color), var(--main-color))',
-                                            height: '250px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            color: 'white',
-                                            fontSize: '4rem',
-                                            borderRadius: '10px',
-                                            marginBottom: '1rem'
-                                        }}>
-                                            <FontAwesomeIcon
-                                                icon={selectedBook.category === 'mainBook' ? faBook :
-                                                    selectedBook.category === 'VaykhyanBook' ? faBookOpen : faScroll}
-                                            />
-                                        </div>
-                                    </Col>
-                                    <Col md={8}>
-                                        <h4 style={{
-                                            fontFamily: "'Tiro Devanagari Sanskrit', serif",
-                                            color: 'var(--text-color)',
-                                            marginBottom: '0.5rem'
-                                        }}>
-                                            {selectedBook.title}
-                                        </h4>
-                                        <p style={{
-                                            fontSize: '1rem',
-                                            color: 'var(--ash)',
-                                            fontStyle: 'italic',
-                                            marginBottom: '1rem'
-                                        }}>
-                                            {selectedBook.titleEn}
-                                        </p>
+                    {/* Card Content (NO RATING) */}
+                    <div className="library-card-body">
+                      <h3
+                        className="library-card-title"
+                        onClick={() => handleOpenBookModal(book)}
+                      >
+                        {book.title}
+                      </h3>
 
-                                        <div className="mb-3">
-                                            <div className="row g-2">
-                                                <div className="col-sm-6">
-                                                    <div className="d-flex align-items-center gap-2">
-                                                        <FontAwesomeIcon icon={faUser} style={{ color: 'var(--ash)' }} />
-                                                        <div>
-                                                            <small style={{ color: 'var(--ash)' }}>लेखक</small>
-                                                            <div style={{ fontWeight: '500', color: 'var(--text-color)' }}>
-                                                                {selectedBook.author}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <div className="d-flex align-items-center gap-2">
-                                                        <FontAwesomeIcon icon={faCalendar} style={{ color: 'var(--ash)' }} />
-                                                        <div>
-                                                            <small style={{ color: 'var(--ash)' }}>काल</small>
-                                                            <div style={{ fontWeight: '500', color: 'var(--text-color)' }}>
-                                                                {selectedBook.year}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <div className="d-flex align-items-center gap-2">
-                                                        <FontAwesomeIcon icon={faLanguage} style={{ color: 'var(--ash)' }} />
-                                                        <div>
-                                                            <small style={{ color: 'var(--ash)' }}>भाषा</small>
-                                                            <div style={{ fontWeight: '500', color: 'var(--text-color)' }}>
-                                                                {selectedBook.language}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <div className="d-flex align-items-center gap-2">
-                                                        <FontAwesomeIcon icon={faFileAlt} style={{ color: 'var(--ash)' }} />
-                                                        <div>
-                                                            <small style={{ color: 'var(--ash)' }}>पृष्ठ संख्या</small>
-                                                            <div style={{ fontWeight: '500', color: 'var(--text-color)' }}>
-                                                                {selectedBook.pages} पृष्ठ
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                      <div className="library-card-author">
+                        <FontAwesomeIcon icon={faUser} className="text-muted" />
+                        <span>{book.author}</span>
+                      </div>
 
-                                        <div className="mb-3">
-                                            <div className="d-flex align-items-center gap-1 mb-2">
-                                                {renderStars(selectedBook.rating)}
-                                                <span style={{ fontSize: '0.9rem', color: 'var(--ash)', marginLeft: '0.5rem' }}>
-                                                    ({selectedBook.rating} रेटिंग)
-                                                </span>
-                                            </div>
+                      <p className="library-card-desc">
+                        {book.description}
+                      </p>
 
-                                            <div className="d-flex justify-content-between text-muted" style={{ fontSize: '0.9rem' }}>
-                                                <div className="d-flex align-items-center gap-1">
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                    <span>{selectedBook.views.toLocaleString()} बार देखा गया</span>
-                                                </div>
-                                                <div className="d-flex align-items-center gap-1">
-                                                    <FontAwesomeIcon icon={faDownload} />
-                                                    <span>{selectedBook.downloads.toLocaleString()} डाउनलोड</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                </Row>
+                      {/* Metadata Chips */}
+                      <div className="library-meta-chips">
+                        <span className="library-chip">
+                          <FontAwesomeIcon icon={faLanguage} />
+                          {book.language || 'संस्कृत'}
+                        </span>
+                        {book.pages && (
+                          <span className="library-chip">
+                            <FontAwesomeIcon icon={faBookOpen} />
+                            {book.pages} पृष्ठ
+                          </span>
+                        )}
+                        <span className="library-chip">
+                          <FontAwesomeIcon icon={faFilePdf} />
+                          {book.format || 'PDF'}
+                        </span>
+                      </div>
 
-                                <hr style={{ borderColor: 'rgba(212, 175, 55, 0.2)', margin: '1rem 0' }} />
+                      {/* Action Buttons */}
+                      <div className="library-card-actions">
+                        <button
+                          type="button"
+                          className="btn-library-view"
+                          onClick={() => handleOpenBookModal(book)}
+                        >
+                          <FontAwesomeIcon icon={faInfoCircle} />
+                          <span>विवरण एवं अध्ययन</span>
+                        </button>
 
-                                <div className="mb-4">
-                                    <h6 style={{ color: 'var(--text-color)', marginBottom: '0.75rem' }}>विवरण</h6>
-                                    <p style={{
-                                        fontSize: '1rem',
-                                        color: 'var(--text-color)',
-                                        lineHeight: '1.6',
-                                        marginBottom: '1rem'
-                                    }}>
-                                        {selectedBook.description}
-                                    </p>
-                                    <p style={{
-                                        fontSize: '0.95rem',
-                                        color: 'var(--ash)',
-                                        lineHeight: '1.5',
-                                        fontStyle: 'italic'
-                                    }}>
-                                        {selectedBook.descriptionEn}
-                                    </p>
-                                </div>
+                        <button
+                          type="button"
+                          className="btn-library-dl"
+                          onClick={(e) => handleDownloadBook(book, e)}
+                          title="ग्रन्थ डाउनलोड करें (Download PDF)"
+                        >
+                          <FontAwesomeIcon icon={faDownload} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-                                <div className="mb-4">
-                                    <h6 style={{ color: 'var(--text-color)', marginBottom: '0.75rem' }}>विषय टैग</h6>
-                                    <div className="d-flex flex-wrap gap-2">
-                                        {selectedBook.tags.map((tag, index) => (
-                                            <span key={index} className="badge rounded-pill px-3 py-2" style={{
-                                                background: 'rgba(168, 198, 108, 0.15)',
-                                                color: 'var(--accent-color)',
-                                                fontSize: '0.85rem',
-                                                fontWeight: '500',
-                                                border: '1px solid rgba(168, 198, 108, 0.3)'
-                                            }}>
-                                                <FontAwesomeIcon icon={faTags} className="me-1" />
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
+            {/* Pagination Controls — Always Visible for clear navigation */}
+            {totalBooksCount > 0 && (
+              <div className="library-pagination-wrapper">
+                <div className="library-pagination">
+                  <button
+                    type="button"
+                    className="library-page-nav-btn"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                    title="पिछला पृष्ठ"
+                    aria-label="Previous Page"
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </button>
 
-                                <div className="mb-3">
-                                    <h6 style={{ color: 'var(--text-color)', marginBottom: '0.75rem' }}>फ़ाइल जानकारी</h6>
-                                    <div className="row g-3">
-                                        <div className="col-sm-4">
-                                            <div className="text-center p-3 rounded" style={{ background: 'rgba(37, 99, 235, 0.1)' }}>
-                                                <div style={{ color: 'var(--primary-color)', fontSize: '1.2rem', fontWeight: '600' }}>
-                                                    {selectedBook.format}
-                                                </div>
-                                                <small style={{ color: 'var(--ash)' }}>फॉर्मेट</small>
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <div className="text-center p-3 rounded" style={{ background: 'rgba(212, 175, 55, 0.1)' }}>
-                                                <div style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', fontWeight: '600' }}>
-                                                    {selectedBook.fileSize}
-                                                </div>
-                                                <small style={{ color: 'var(--ash)' }}>आकार</small>
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <div className="text-center p-3 rounded" style={{ background: 'rgba(168, 198, 108, 0.1)' }}>
-                                                <div style={{ color: 'var(--accent-color)', fontSize: '1.2rem', fontWeight: '600' }}>
-                                                    {selectedBook.pages}
-                                                </div>
-                                                <small style={{ color: 'var(--ash)' }}>पृष्ठ</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Modal.Body>
-                            <Modal.Footer style={{ borderTop: '1px solid rgba(212, 175, 55, 0.2)' }}>
-                                <div className="d-flex w-100 gap-2">
-                                    <Button
-                                        variant="outline-secondary"
-                                        onClick={() => toggleFavorite(selectedBook.id)}
-                                        style={{
-                                            borderColor: favorites.has(selectedBook.id) ? 'var(--primary-color)' : 'var(--ash)',
-                                            color: favorites.has(selectedBook.id) ? 'var(--primary-color)' : 'var(--ash)'
-                                        }}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faHeart}
-                                            className="me-2"
-                                            style={{
-                                                color: favorites.has(selectedBook.id) ? 'var(--primary-color)' : 'var(--ash)'
-                                            }}
-                                        />
-                                        {favorites.has(selectedBook.id) ? 'पसंदीदा से हटाएं' : 'पसंदीदा में जोड़ें'}
-                                    </Button>
+                  <div className="library-page-numbers">
+                    {paginationItems.map((item, idx) => {
+                      if (typeof item === 'string') {
+                        return (
+                          <span key={`dots-${idx}`} className="library-page-dots" aria-hidden="true">
+                            ...
+                          </span>
+                        );
+                      }
+                      return (
+                        <button
+                          key={item}
+                          type="button"
+                          className={`library-page-btn ${item === currentPage ? 'active' : ''}`}
+                          onClick={() => handlePageChange(item)}
+                          title={`पृष्ठ ${item}`}
+                          aria-current={item === currentPage ? 'page' : undefined}
+                        >
+                          {item}
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                                    <Button
-                                        onClick={() => {
-                                            if (navigator.clipboard) {
-                                                navigator.clipboard.writeText(`${selectedBook.title} - आर्य पाठशाला डिजिटल पुस्तकालय: ${window.location.origin}#library`);
-                                                alert(`'${selectedBook.title}' का लिंक क्लिपबोर्ड पर कॉपी हो गया!`);
-                                            }
-                                        }}
-                                        style={{
-                                            background: 'var(--secondary-color)',
-                                            border: 'none',
-                                            color: 'white',
-                                            fontWeight: '600'
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={faShare} className="me-2" />
-                                        साझा करें
-                                    </Button>
+                  <button
+                    type="button"
+                    className="library-page-nav-btn"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages}
+                    title="अगला पृष्ठ"
+                    aria-label="Next Page"
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </button>
+                </div>
 
-                                    <Button
-                                        onClick={() => {
-                                            alert(`'${selectedBook.title}' का डिजिटल ग्रन्थ खोला जा रहा है...`);
-                                            window.open('https://archive.org/details/RigVedaWithSayanaBhashya', '_blank');
-                                        }}
-                                        style={{
-                                            background: 'linear-gradient(135deg, var(--primary-color), var(--main-color))',
-                                            border: 'none',
-                                            color: 'white',
-                                            fontWeight: '600',
-                                            flex: 1
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={faDownload} className="me-2" />
-                                        डाउनलोड करें ({selectedBook.fileSize})
-                                    </Button>
-                                </div>
-                            </Modal.Footer>
-                        </>
+                <div className="library-pagination-info">
+                  पृष्ठ {currentPage} / {totalPages} (प्रदर्शित ग्रन्थ: {totalBooksCount === 0 ? 0 : `${startIndex + 1}–${Math.min(startIndex + effectivePerPage, totalBooksCount)}`} / कुल {totalBooksCount} ग्रन्थ)
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="library-empty-state">
+            <FontAwesomeIcon icon={faBook} className="library-empty-icon" />
+            <h4 className="library-empty-title">कोई ग्रन्थ प्राप्त नहीं हुआ</h4>
+            <p className="library-empty-subtitle">
+              कृपया अपनी खोज शब्दावली बदलें अथवा फ़िल्टर को रीसेट करें।
+            </p>
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              onClick={() => {
+                setSearchTerm('');
+                setActiveCategory('all');
+                setFilterLanguage('all');
+              }}
+            >
+              समस्त फ़िल्टर हटाएं
+            </Button>
+          </div>
+        )}
+      </Container>
+
+      {/* ── Interactive Book Details & Study Modal ──────────── */}
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        size="lg"
+        centered
+        className="library-modal"
+      >
+        {selectedBook && (
+          <>
+            <Modal.Header closeButton className="library-modal-header">
+              <Modal.Title className="d-flex align-items-center gap-2 text-white">
+                <FontAwesomeIcon icon={faBookOpen} className="text-warning" />
+                <span>ग्रन्थ अध्ययन एवं विवरण कक्ष</span>
+              </Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body className="library-modal-body">
+              <Row className="g-4 align-items-center">
+                {/* 3D Book Cover View */}
+                <Col md={5}>
+                  <div className="library-modal-cover-box">
+                    <div style={{ width: '100%', maxWidth: '240px' }}>
+                      <DynamicBookCover
+                        title={selectedBook.title}
+                        alt={selectedBook.title}
+                        className="w-100"
+                      />
+                    </div>
+                  </div>
+                </Col>
+
+                {/* Detailed Information (NO RATING) */}
+                <Col md={7}>
+                  <div className="library-modal-details">
+                    <h3 className="library-modal-title">{selectedBook.title}</h3>
+                    {selectedBook.titleEn && (
+                      <p className="library-modal-title-en">{selectedBook.titleEn}</p>
                     )}
-                </Modal>
-            </Container>
 
-            {/* Custom CSS */}
-            <style>{`
-        .hover-card {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .hover-card:hover {
-          transform: translateY(-8px);
-        }
-        
-        .btn-group .btn {
-          transition: all 0.3s ease;
-        }
-        
-        .btn-group .btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .badge {
-          transition: all 0.2s ease;
-        }
-        
-        .badge:hover {
-          transform: scale(1.05);
-        }
-        
-        .modal-content {
-          border-radius: 15px;
-          border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .modal-header {
-          background: linear-gradient(135deg, rgba(253, 234, 168, 0.3), rgba(250, 244, 230, 0.3));
-        }
-        
-        .form-control:focus,
-        .form-select:focus {
-          border-color: var(--secondary-color);
-          box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
-        }
-        
-        @media (max-width: 768px) {
-          .btn-group {
-            flex-direction: column;
-          }
-          
-          .btn-group .btn {
-            border-radius: 25px !important;
-            margin-bottom: 0.5rem;
-          }
-          
-          .btn-group .btn:last-child {
-            margin-bottom: 0;
-          }
-        }
-        
-        /* Loading animation for book cards */
-        @keyframes bookCardLoad {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .hover-card {
-          animation: bookCardLoad 0.5s ease-out forwards;
-        }
-        
-        /* Responsive text sizing */
-        @media (max-width: 576px) {
-          .modal-dialog {
-            margin: 1rem;
-          }
-          
-          .row.g-3 > * {
-            margin-bottom: 1rem;
-          }
-        }
-      `}</style>
-        </section>
-    );
-};
+                    <table className="library-meta-table">
+                      <tbody>
+                        <tr>
+                          <td>लेखक / सम्पादक:</td>
+                          <td><strong>{selectedBook.author}</strong></td>
+                        </tr>
+                        <tr>
+                          <td>श्रेणी:</td>
+                          <td>{getCategoryLabel(selectedBook.category)}</td>
+                        </tr>
+                        <tr>
+                          <td>भाषा:</td>
+                          <td>{selectedBook.language || 'संस्कृत'}</td>
+                        </tr>
+                        {selectedBook.pages && (
+                          <tr>
+                            <td>पृष्ठ संख्या:</td>
+                            <td>{selectedBook.pages} पृष्ठ</td>
+                          </tr>
+                        )}
+                        {selectedBook.year && (
+                          <tr>
+                            <td>रचना काल / वर्ष:</td>
+                            <td>{selectedBook.year}</td>
+                          </tr>
+                        )}
+                        <tr>
+                          <td>प्रारूप / आकार:</td>
+                          <td>{selectedBook.format || 'PDF'} ({selectedBook.fileSize || 'उपलब्ध'})</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-export default LibrarySection;
+                    <div className="library-modal-desc-heading">ग्रन्थ परिचय एवं वैशिष्ट्य:</div>
+                    <p className="library-modal-desc">
+                      {selectedBook.description}
+                    </p>
+
+                    {/* Tags */}
+                    {selectedBook.tags && (
+                      <div className="library-modal-tags">
+                        {selectedBook.tags.split(',').map((tag, i) => (
+                          <span key={i} className="library-tag-pill">
+                            #{tag.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="library-modal-actions">
+                      <button
+                        type="button"
+                        className="btn-modal-dl"
+                        onClick={() => handleDownloadBook(selectedBook)}
+                      >
+                        <FontAwesomeIcon icon={faDownload} />
+                        <span>ग्रन्थ डाउनलोड करें (PDF)</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn-modal-read"
+                        onClick={() => {
+                          const url = selectedBook.pdfUrl || 'https://archive.org/details/RigVedaWithSayanaBhashya';
+                          window.open(url, '_blank', 'noopener,noreferrer');
+                          if (selectedBook.id) {
+                            api.post(`/library/${selectedBook.id}/view`).catch(() => { });
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faExternalLinkAlt} />
+                        <span>ऑनलाइन पढ़ें</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn-modal-share"
+                        onClick={() => handleShareBook(selectedBook)}
+                        title="लिंक कॉपी करें"
+                      >
+                        <FontAwesomeIcon icon={copyToast ? faCheck : faShareAlt} />
+                        <span>{copyToast ? 'कॉपी हुआ!' : 'साझा करें'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Modal.Body>
+          </>
+        )}
+      </Modal>
+    </section>
+  );
+}

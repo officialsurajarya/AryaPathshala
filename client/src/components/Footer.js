@@ -5,7 +5,6 @@ import {
   FaTwitter,
   FaInstagram,
   FaYoutube,
-  FaWhatsapp,
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
@@ -26,9 +25,9 @@ export default function Footer({ onCategorySelect }) {
       <div className="container">
         <div className="footer-content">
           {/* About Arya Pathshala */}
-          <div className="footer-section">
+          <div className="footer-section footer-about">
             <h3>आर्य पाठशाला</h3>
-            <p>
+            <p className="mb-3">
               आर्यावर्त की प्राचीन शास्त्र परम्परा को जन-जन तक पहुँचाने हेतु
               समर्पित
             </p>
@@ -70,20 +69,12 @@ export default function Footer({ onCategorySelect }) {
               >
                 <FaYoutube />
               </a>
-              <a
-                href="https://wa.me/+916284667127"
-                className="social-icon whatsapp"
-                aria-label="WhatsApp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaWhatsapp />
-              </a>
+
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="footer-section">
+          <div className="footer-section footer-links">
             <h3>त्वरित लिंक</h3>
             <ul>
               <li>
@@ -105,7 +96,7 @@ export default function Footer({ onCategorySelect }) {
           </div>
 
           {/* Courses */}
-          <div className="footer-section">
+          <div className="footer-section footer-courses">
             <h3>पाठ्यक्रम</h3>
             <ul>
               <li>
@@ -150,21 +141,29 @@ export default function Footer({ onCategorySelect }) {
         {/* Bottom Bar */}
         <div className="footer-bottom p-3">
           <p>
-            &copy; 2025-2026{" "}
-            <strong>Arya Pathshala</strong>
-            . All rights reserved. | Developed & Maintained by{" "}
-            <a
-              href="https://officialsurajarya.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "var(--text-color, #c73659)",
-                textDecoration: "none",
-                fontWeight: "900",
-              }}
-            >
-              Suraj Arya
-            </a>
+            <span className="d-blck">
+              &copy; 2025-2026{" "}
+              <strong>Arya Pathshala. </strong>
+            </span>
+            <span className="d-blck">
+              All Rights Reserved. <span className="pipee">|</span> &nbsp;
+            </span>
+            <span className="d-blck">
+              Developed by{" "}
+              <a
+                href="https://officialsurajarya.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "var(--text-color, #c73659)",
+                  textDecoration: "none",
+                  fontWeight: "900",
+                }}
+              >
+                Suraj Arya
+              </a>
+            </span>
+
           </p>
         </div>
       </div>

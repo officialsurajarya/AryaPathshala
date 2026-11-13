@@ -78,6 +78,7 @@ export default function Contact() {
             <div className="contact-info">
               <div className="contact-intro">
                 <h3>आइए, वार्ता प्रारंभ करें</h3>
+                <br />
                 <p>
                   हमें आपसे सुनकर प्रसन्नता होगी। हमें संदेश भेजें, हम यथाशीघ्र
                   उत्तर देंगे।
@@ -95,7 +96,7 @@ export default function Contact() {
                     <p>
                       +91 6284667127
                       <br />
-                      +91 8427714353
+                      +91 7895750065
                     </p>
                     <span className="availability">
                       सोम-शुक्र: प्रातः 9 बजे - सायं 6 बजे
@@ -122,6 +123,7 @@ export default function Contact() {
               {/* Social Media Links */}
               <div className="social-links">
                 <h4>हमें अनुसरण करें</h4>
+                <br />
                 <div className="social-icons">
                   <a
                     href="https://facebook.com"
@@ -160,7 +162,7 @@ export default function Contact() {
                     <i className="fab fa-youtube"></i>
                   </a>
                   <a
-                    href="https://wa.me/+916284667127"
+                    href="https://wa.me/916284667127"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-icon whatsapp"
@@ -205,7 +207,7 @@ export default function Contact() {
                   )}
 
                   <div className="row">
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label htmlFor="firstName" className="form-label">
                           <i className="fas fa-user me-2"></i>प्रथम नाम *
@@ -222,7 +224,7 @@ export default function Contact() {
                         />
                       </div>
                     </div>
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label htmlFor="lastName" className="form-label">
                           <i className="fas fa-user me-2"></i>उपनाम
@@ -241,7 +243,7 @@ export default function Contact() {
                   </div>
 
                   <div className="row">
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label htmlFor="email" className="form-label">
                           <i className="fas fa-envelope me-2"></i>ईमेल पता *
@@ -258,7 +260,7 @@ export default function Contact() {
                         />
                       </div>
                     </div>
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label htmlFor="phone" className="form-label">
                           <i className="fas fa-phone me-2"></i>फ़ोन नंबर

@@ -3,9 +3,12 @@ const { successResponse, errorResponse } = require("../utils/response");
 
 const getCourses = async (req, res, next) => {
   try {
-    const { category, search, limit = 50, page = 1 } = req.query;
+    const { category, search, limit = 100, page = 1, includeDrafts } = req.query;
 
-    const where = { isPublished: true };
+    const where = {};
+    if (includeDrafts !== "true" && includeDrafts !== true) {
+      where.isPublished = true;
+    }
 
     if (category && category !== "all") {
       where.category = category;
@@ -22,21 +25,49 @@ const getCourses = async (req, res, next) => {
     const take = parseInt(limit, 10);
     const skip = (parseInt(page, 10) - 1) * take;
 
-    const [total, courses] = await Promise.all([
+    const [total, rawCourses] = await Promise.all([
       prisma.course.count({ where }),
       prisma.course.findMany({
         where,
         take,
         skip,
+        include: {
+          _count: {
+            select: { enrollments: true },
+          },
+        },
         orderBy: { id: "asc" },
       }),
     ]);
+
+    const courses = rawCourses.map((c) => ({
+      ...c,
+      studentsCount: c._count ? c._count.enrollments : (c.studentsCount || 0),
+    }));
 
     return successResponse(res, "पाठ्यक्रम सूची प्राप्त हुई", {
       total,
       page: parseInt(page, 10),
       totalPages: Math.ceil(total / take),
       courses,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPublicStats = async (req, res, next) => {
+  try {
+    const [totalStudents, totalCourses, totalBooks] = await Promise.all([
+      prisma.user.count({ where: { role: "STUDENT" } }),
+      prisma.course.count({ where: { isPublished: true } }),
+      prisma.libraryBook.count({ where: { isAvailable: true } }),
+    ]);
+
+    return successResponse(res, "सार्वजनिक आँकड़े प्राप्त हुए", {
+      totalStudents,
+      totalCourses,
+      totalBooks,
     });
   } catch (error) {
     next(error);
@@ -88,7 +119,7 @@ const getCategories = async (req, res, next) => {
 const createCourse = async (req, res, next) => {
   try {
     const {
-      slug, category, title, titleEn, description, image,
+      slug, category, title, titleEn, description, syllabus, instructor, image,
       originalPrice, currentPrice, rating, durationHours,
       studentsCount, hasCertificate, badgeText, badgeType, isPublished,
     } = req.body;
@@ -97,18 +128,31 @@ const createCourse = async (req, res, next) => {
       return errorResponse(res, "slug, category, title और description आवश्यक हैं", 400);
     }
 
+    const cleanSlug = slug.toLowerCase().trim().replace(/\s+/g, "-");
+    const existing = await prisma.course.findUnique({ where: { slug: cleanSlug } });
+    if (existing) {
+      return errorResponse(res, "इस Slug के साथ पाठ्यक्रम पहले से मौजूद है", 400);
+    }
+
     const course = await prisma.course.create({
       data: {
-        slug, category, title, titleEn, description,
-        image: image || "/images/default.jpg",
+        slug: cleanSlug,
+        category,
+        title,
+        titleEn,
+        description,
+        syllabus: syllabus || "",
+        instructor: instructor || "आचार्य",
+        image: image || "/images/blank_book.jpg",
         originalPrice: originalPrice || "₹0",
         currentPrice: currentPrice || "₹0",
         rating: rating ? parseFloat(rating) : 4.8,
-        durationHours: durationHours ? parseInt(durationHours) : 30,
-        studentsCount: studentsCount ? parseInt(studentsCount) : 0,
-        hasCertificate: hasCertificate !== undefined ? hasCertificate : true,
-        badgeText, badgeType,
-        isPublished: isPublished !== undefined ? isPublished : true,
+        durationHours: durationHours ? parseInt(durationHours, 10) : 30,
+        studentsCount: studentsCount ? parseInt(studentsCount, 10) : 0,
+        hasCertificate: hasCertificate !== undefined ? Boolean(hasCertificate) : true,
+        badgeText: badgeText || "",
+        badgeType: badgeType || "popular",
+        isPublished: isPublished !== undefined ? Boolean(isPublished) : true,
       },
     });
 
@@ -122,9 +166,11 @@ const updateCourse = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const updates = { ...req.body };
-    if (updates.rating) updates.rating = parseFloat(updates.rating);
-    if (updates.durationHours) updates.durationHours = parseInt(updates.durationHours);
-    if (updates.studentsCount) updates.studentsCount = parseInt(updates.studentsCount);
+    if (updates.rating !== undefined) updates.rating = parseFloat(updates.rating);
+    if (updates.durationHours !== undefined) updates.durationHours = parseInt(updates.durationHours, 10);
+    if (updates.studentsCount !== undefined) updates.studentsCount = parseInt(updates.studentsCount, 10);
+    if (updates.hasCertificate !== undefined) updates.hasCertificate = Boolean(updates.hasCertificate);
+    if (updates.isPublished !== undefined) updates.isPublished = Boolean(updates.isPublished);
 
     const course = await prisma.course.update({ where: { id }, data: updates });
     return successResponse(res, "पाठ्यक्रम सफलतापूर्वक अपडेट किया गया", course);
@@ -137,7 +183,7 @@ const deleteCourse = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     await prisma.course.delete({ where: { id } });
-    return successResponse(res, "पाठ्यक्रम हटाया गया");
+    return successResponse(res, "पाठ्यक्रम सफलतापूर्वक हटाया गया");
   } catch (error) {
     next(error);
   }
@@ -147,6 +193,7 @@ module.exports = {
   getCourses,
   getCourseBySlug,
   getCategories,
+  getPublicStats,
   createCourse,
   updateCourse,
   deleteCourse,

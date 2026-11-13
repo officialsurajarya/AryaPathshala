@@ -3,8 +3,14 @@ const { successResponse, errorResponse } = require("../utils/response");
 
 const getNotices = async (req, res, next) => {
   try {
+    const { all, includeDrafts } = req.query;
+    const where = {};
+    if (all !== "true" && includeDrafts !== "true") {
+      where.isPublished = true;
+    }
+
     const notices = await prisma.notice.findMany({
-      where: { isPublished: true },
+      where,
       orderBy: [{ priority: "asc" }, { createdAt: "desc" }],
     });
 
@@ -16,7 +22,7 @@ const getNotices = async (req, res, next) => {
 
 const createNotice = async (req, res, next) => {
   try {
-    const { title, content, type, category, dateText, actionText, actionLink, priority } = req.body;
+    const { title, content, type, category, dateText, actionText, actionLink, priority, isPublished } = req.body;
 
     if (!title || !content || !type) {
       return errorResponse(res, "शीर्षक, सामग्री एवं प्रकार आवश्यक हैं", 400);
@@ -32,6 +38,7 @@ const createNotice = async (req, res, next) => {
         actionText: actionText || "विस्तार से पढ़ें",
         actionLink: actionLink || "#courses",
         priority: priority || "MEDIUM",
+        isPublished: isPublished !== undefined ? Boolean(isPublished) : true,
       },
     });
 
@@ -41,22 +48,24 @@ const createNotice = async (req, res, next) => {
   }
 };
 
-const deleteNotice = async (req, res, next) => {
+const updateNotice = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
-    await prisma.notice.delete({ where: { id } });
-    return successResponse(res, "सूचना हटाई गई");
+    const updates = { ...req.body };
+    if (updates.isPublished !== undefined) updates.isPublished = Boolean(updates.isPublished);
+
+    const notice = await prisma.notice.update({ where: { id }, data: updates });
+    return successResponse(res, "सूचना सफलतापूर्वक अपडेट की गई", notice);
   } catch (error) {
     next(error);
   }
 };
 
-const updateNotice = async (req, res, next) => {
+const deleteNotice = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const updates = { ...req.body };
-    const notice = await prisma.notice.update({ where: { id }, data: updates });
-    return successResponse(res, "सूचना सफलतापूर्वक अपडेट की गई", notice);
+    await prisma.notice.delete({ where: { id } });
+    return successResponse(res, "सूचना सफलतापूर्वक हटाई गई");
   } catch (error) {
     next(error);
   }

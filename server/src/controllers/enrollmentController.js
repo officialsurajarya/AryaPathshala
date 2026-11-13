@@ -122,8 +122,59 @@ const updateProgress = async (req, res, next) => {
   }
 };
 
+const getTeacherStudents = async (req, res, next) => {
+  try {
+    const enrollments = await prisma.enrollment.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            avatar: true,
+            city: true,
+            education: true,
+            createdAt: true,
+          },
+        },
+        course: {
+          select: {
+            id: true,
+            title: true,
+            instructor: true,
+            durationHours: true,
+          },
+        },
+      },
+      orderBy: { enrolledAt: "desc" },
+    });
+
+    const studentsList = enrollments.map((e) => ({
+      id: e.id,
+      studentId: e.user.id,
+      name: e.user.name,
+      email: e.user.email,
+      phone: e.user.phone || "—",
+      avatar: e.user.avatar || "🕉️",
+      city: e.user.city || "—",
+      education: e.user.education || "संस्कृत स्वाध्यायी",
+      courseTitle: e.course.title,
+      courseId: e.course.id,
+      progress: e.progressPercent,
+      status: e.status === "COMPLETED" ? "सम्पन्न" : "सक्रिय",
+      enrolledAt: e.enrolledAt,
+    }));
+
+    return successResponse(res, "शिक्षार्थी सूची प्राप्त हुई", studentsList);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   enrollInCourse,
   getMyEnrollments,
   updateProgress,
+  getTeacherStudents,
 };

@@ -1,0 +1,115 @@
+/* DynamicBookCover.css */
+
+.dynamic-book-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #120d09;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.dynamic-book-cover .book-base-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dynamic-book-cover .book-title-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dynamic-book-cover:hover .book-base-img {
+  transform: scale(1.03);
+}
+
+.dynamic-book-cover:hover .book-title-svg {
+  transform: scale(1.03);
+}
+
+.book-title-text {
+  font-family: 'Rozha One', 'Noto Serif Devanagari', 'Tiro Devanagari Sanskrit', 'Nirmala UI', serif;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  letter-spacing: 0.5px;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Course card integration */
+.course-image .dynamic-book-cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Admin table thumbnail */
+.course-thumb-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Admin modal preview */
+.admin-book-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(38, 22, 12, 0.6) 0%, rgba(20, 12, 6, 0.8) 100%);
+  border: 1px solid rgba(218, 165, 32, 0.35);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.admin-book-preview-thumb {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 215, 100, 0.4);
+}
+
+.admin-book-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-book-preview-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e5b967;
+}
+
+.admin-book-preview-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Rozha One', 'Noto Serif Devanagari', serif;
+}
+
+.admin-book-preview-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}

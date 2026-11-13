@@ -11,12 +11,13 @@ import {
   faEnvelope,
   faTimes,
   faBars,
+  faUser,
   faUserPlus,
   faSignInAlt,
-  faColumns,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
+import AnnouncementBar from "./AnnouncementBar";
 
 export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) {
   const { user, isAuthenticated, logout } = useAuth();
@@ -44,12 +45,15 @@ export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) 
   };
 
   return (
-    <Navbar
-      expand="lg"
-      expanded={expanded}
-      className="p-0 navbar fixed-top"
-      ref={navRef}
-    >
+    <header className="site-header fixed-top" ref={navRef}>
+      {/* Top Announcement Bar with Contact & Email */}
+      <AnnouncementBar />
+
+      <Navbar
+        expand="lg"
+        expanded={expanded}
+        className="p-0 navbar"
+      >
       <Container className="NavContainer">
         <Navbar.Brand href="#" className="p-0 navBrand">
           <img src="./logo.png" width="80" alt="Arya Pathshala Logo" />
@@ -164,10 +168,12 @@ export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) 
                     setExpanded(false);
                     if (onOpenDashboard) onOpenDashboard();
                   }}
-                  title="डैशबोर्ड खोलें"
+                  title={user?.name ? `${user.name} — डैशबोर्ड खोलें` : "डैशबोर्ड खोलें"}
                 >
-                  <span className="me-1">{user?.avatar || "🕉️"}</span>
-                  <FontAwesomeIcon icon={faColumns} className="me-1" /> डैशबोर्ड
+                  <FontAwesomeIcon icon={faUser} className="me-1" />
+                  <span style={{ maxWidth: 140, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {user?.name || "विद्यार्थी"}
+                  </span>
                 </button>
                 <button
                   className="btn-signup d-flex align-items-center gap-1"
@@ -188,7 +194,7 @@ export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) 
                   type="button"
                   onClick={() => {
                     setExpanded(false);
-                    showAuth(true);
+                    showAuth("login");
                   }}
                 >
                   <FontAwesomeIcon icon={faSignInAlt} className="me-1" /> प्रवेशः
@@ -198,7 +204,7 @@ export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) 
                   type="button"
                   onClick={() => {
                     setExpanded(false);
-                    showAuth(true);
+                    showAuth("signup");
                   }}
                 >
                   <FontAwesomeIcon icon={faUserPlus} className="me-1" /> पञ्जीकरणम्
@@ -209,5 +215,6 @@ export default function Header({ onCategorySelect, showAuth, onOpenDashboard }) 
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </header>
   );
 }

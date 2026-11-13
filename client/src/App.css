@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box !important;
-  scroll-behavior: smooth !important;
-  transition: all 0.3s ease !important;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 p,
@@ -32,7 +34,19 @@ h6 {
 .App {
   background-color: var(--background-color);
   font-family: 'Inter', 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', sans-serif;
-  padding-top: 80px;
+  padding-top: 112px;
+}
+
+.App.dashboard-active {
+  padding-top: 0 !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.site-header {
+  width: 100%;
+  z-index: 1030;
 }
 
 .container-fluid {

@@ -1,258 +1,484 @@
-/* Import Font Awesome for icons */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+/* =========================================================
+   Notifications.css — Arya Pathshala Vedic Notice Board
+   Modern Vedic Aesthetics | Card Clamp | Mobile Optimized
+   ========================================================= */
 
 /* ===== Notification Section ===== */
 #notices {
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-    padding: 4rem 1rem;
+  background: var(--gradient-to-top);
+  /* background: linear-gradient(to bottom, #FAF4E6 0%, #FDEAA8 50%, #FAF4E6 100%); */
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 1rem;
 }
 
 .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
 }
 
 .section-title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--primary-color, #4a4a4a);
-    margin-bottom: 1rem;
-    font-family: 'Noto Serif Devanagari', serif;
-    position: relative;
-    display: inline-block;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #5d0f22;
+  margin-bottom: 0.8rem;
+  font-family: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', serif;
+  position: relative;
+  display: inline-block;
 }
 
 .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--secondary-color, #ff6b6b), var(--accent-color, #f39c12));
-    border-radius: 2px;
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 3.5px;
+  background: linear-gradient(90deg, #841b3a 0%, #d4af37 50%, #841b3a 100%);
+  border-radius: 3px;
 }
 
 .section-subtitle {
-    font-size: 1.1rem;
-    color: var(--ash, #777);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
+  font-size: 1.05rem;
+  color: #726759;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* ===== Notifications Grid ===== */
+/* ===== Notifications Grid (2 Row 2 Column Layout) ===== */
 .notifications-container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .notification-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
 /* ===== Notification Card ===== */
 .notification-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+  outline: none;
 }
 
+/* Top Vedic Highlight Accent */
 .notification-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--primary-color, #4a4a4a), var(--secondary-color, #ff6b6b), var(--accent-color, #f39c12));
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #841b3a 0%, #d4af37 50%, #841b3a 100%);
+  transition: height 0.3s ease;
 }
 
 .notification-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 34px rgba(132, 27, 58, 0.12), 0 3px 10px rgba(212, 175, 55, 0.22);
+  border-color: rgba(132, 27, 58, 0.45);
+}
+
+.notification-card:hover::before {
+  height: 5px;
+}
+
+.notification-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.6);
 }
 
 /* ===== Notification Priority Dot ===== */
 .notification-priority {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  animation: pulsePriority 2s infinite;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .priority-high {
-    background: #FF4757;
+  background: #e74c3c;
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
 }
 
 .priority-medium {
-    background: #FFA726;
+  background: #f39c12;
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.5);
 }
 
 .priority-low {
-    background: #66BB6A;
+  background: #27ae60;
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
 }
 
-@keyframes pulse {
+@keyframes pulsePriority {
 
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 
-    50% {
-        transform: scale(1.5);
-        opacity: 0.7;
-    }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.65;
+  }
 }
 
 /* ===== Notification Header ===== */
 .notification-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
 }
 
 .notification-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.notification-card:hover .notification-icon {
+  transform: scale(1.08) rotate(-4deg);
 }
 
 .icon-important {
-    background: linear-gradient(135deg, #FF6B6B, #FF8787);
-}
-
-.icon-update {
-    background: linear-gradient(135deg, #4ECDC4, #44A08D);
-}
-
-.icon-exam {
-    background: linear-gradient(135deg, #45B7D1, #96C93D);
+  background: linear-gradient(135deg, #c73659 0%, #841b3a 100%);
 }
 
 .icon-course {
-    background: linear-gradient(135deg, var(--secondary-color, #ff6b6b), var(--accent-color, #f39c12));
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+}
+
+.icon-exam {
+  background: linear-gradient(135deg, #5b52a3 0%, #3e3280 100%);
+}
+
+.icon-update {
+  background: linear-gradient(135deg, #16a085 0%, #0e6655 100%);
 }
 
 .notification-meta {
-    flex: 1;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.notification-type {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary-color, #4a4a4a);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.3rem;
+.notification-type-badge {
+  display: inline-block;
+}
+
+.notification-type-badge span {
+  background: #fdf8ee;
+  color: #5d0f22;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: inline-block;
 }
 
 .notification-date {
-    font-size: 0.9rem;
-    color: var(--ash, #777);
-    display: flex;
-    align-items: center;
+  font-size: 0.78rem;
+  color: #8c8273;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ===== Notification Content ===== */
 .notification-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-color, #333);
-    margin-bottom: 1rem;
-    line-height: 1.4;
-    font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #3e101c;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  font-family: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+  transition: color 0.2s ease;
+}
+
+.notification-card:hover .notification-title {
+  color: #841b3a;
 }
 
 .notification-content {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+  color: #5a544b;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1 1 auto;
 }
 
 /* ===== Notification Actions ===== */
 .notification-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.3);
 }
 
 .read-more-btn {
-    background: linear-gradient(135deg, var(--primary-color, #4a4a4a), var(--main-color, #f39c12));
-    color: white;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+  background: linear-gradient(135deg, #841b3a 0%, #a82347 100%);
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.86rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(132, 27, 58, 0.22);
 }
 
 .read-more-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(199, 54, 89, 0.4);
+  background: linear-gradient(135deg, #a82347 0%, #c73659 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(132, 27, 58, 0.35);
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 992px) {
-    .notification-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
+.action-arrow {
+  transition: transform 0.25s ease;
 }
 
-@media (max-width: 768px) {
-    .notification-title {
-        font-size: 1.1rem;
-    }
+.read-more-btn:hover .action-arrow,
+.notification-card:hover .action-arrow {
+  transform: translateX(4px);
+}
 
-    .notification-content {
-        font-size: 0.9rem;
-    }
+/* ===== Notice Modal Styling ===== */
+.notice-details-modal .modal-content {
+  border-radius: 20px;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
 
-    .read-more-btn {
-        font-size: 0.85rem;
-    }
+.notice-modal-header {
+  background: linear-gradient(135deg, #5d0f22 0%, #841b3a 100%);
+  color: #ffffff;
+  border-bottom: 2px solid #d4af37;
+  padding: 16px 22px;
+}
+
+.notice-modal-header .btn-close {
+  filter: invert(1);
+  opacity: 0.85;
+}
+
+.notice-modal-body {
+  padding: 24px;
+  background: #fdfaf3;
+}
+
+.notice-modal-date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7a6e60;
+}
+
+.notice-modal-cat-tag {
+  background: #f4edd8;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #5d0f22;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.notice-modal-title {
+  font-family: 'Tiro Devanagari Sanskrit', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #5d0f22;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.notice-modal-text {
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #4a443b;
+  white-space: pre-line;
+}
+
+.notice-modal-footer {
+  background: #fbf6ec;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 14px 22px;
+  gap: 10px;
+}
+
+.notice-modal-close-btn {
+  border-radius: 22px;
+  padding: 7px 18px;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.notice-modal-action-btn {
+  background: linear-gradient(135deg, #841b3a 0%, #a82347 100%);
+  border: none;
+  border-radius: 22px;
+  padding: 7px 20px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.notice-modal-action-btn:hover {
+  background: linear-gradient(135deg, #a82347 0%, #c73659 100%);
+}
+
+/* ===== Responsive Design (Phone & Tablet) ===== */
+@media (max-width: 991.98px) {
+  #notices {
+    padding: 3.5rem 1rem;
+  }
+
+  .section-title {
+    font-size: 2.3rem;
+  }
+
+  .notification-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
 }
 
 @media (max-width: 576px) {
-    .notification-grid {
-        grid-template-columns: 1fr;
-    }
+  #notices {
+    padding: 2rem 0.75rem;
+  }
 
-    .notification-title {
-        font-size: 1rem;
-    }
+  .section-header {
+    margin-bottom: 1.8rem;
+  }
 
-    .notification-content {
-        font-size: 0.85rem;
-    }
+  .section-title {
+    font-size: 1.85rem;
+  }
 
-    .read-more-btn {
-        font-size: 0.8rem;
-    }
+  .section-subtitle {
+    font-size: 0.88rem;
+  }
+
+  /* 2 Row 2 Column (2 Columns per row) in Phone Mode */
+  .notification-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .notification-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+
+  .notification-priority {
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .notification-header {
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .notification-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  .notification-type-badge span {
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    border-radius: 8px;
+  }
+
+  .notification-date {
+    font-size: 0.66rem;
+  }
+
+  .notification-title {
+    font-size: 0.88rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.2em;
+  }
+
+  .notification-content {
+    font-size: 0.74rem;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .notification-actions {
+    padding-top: 6px;
+  }
+
+  .read-more-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 5px 8px;
+    font-size: 0.72rem;
+    border-radius: 16px;
+    gap: 4px;
+  }
 }

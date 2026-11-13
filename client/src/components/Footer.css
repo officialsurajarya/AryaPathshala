@@ -72,7 +72,9 @@
 }
 
 
-
+.footer-bottom strong {
+    color: var(--primary-color);
+}
 
 
 
@@ -100,12 +102,6 @@
 
     .section-header .section-subtitle {
         font-size: 1rem;
-    }
-
-    .filter-btn {
-        padding: 10px 20px;
-        margin: 0 5px 10px 0;
-        font-size: 0.9rem;
     }
 
     .course-stats {
@@ -146,11 +142,6 @@
     .course-description {
         font-size: 0.9rem;
     }
-
-    .filter-btn {
-        width: calc(50% - 10px);
-        margin: 0 5px 10px 0;
-    }
 }
 
 
@@ -162,21 +153,115 @@
 
 
 
-/* ===== Responsive ===== */
+/* ===== Responsive Footer ===== */
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr 1fr;
-        gap: 30px;
+        gap: 26px;
     }
 }
 
 @media (max-width: 576px) {
     .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 22px 14px !important;
+        text-align: left;
     }
 
-    .social-links {
+    /* Section 1: About Arya Pathshala (Full Width) */
+    .footer-about {
+        grid-column: 1 / -1 !important;
+        text-align: center !important;
+        margin-bottom: 4px;
+    }
+
+    .footer-about h3 {
+        font-size: 1.35rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .footer-about p {
+        font-size: 0.88rem !important;
+        max-width: 320px;
+        margin: 0 auto 12px auto !important;
+    }
+
+    .footer-about .social-icons {
+        display: flex;
+        justify-content: center !important;
+        gap: 10px;
+    }
+
+    /* Single Row with 2 Columns: 1st Col त्वरित लिंक | 2nd Col पाठ्यक्रम */
+    .footer-links {
+        /* grid-column: 1 / 2 !important;
+        text-align: left !important;
+        padding-left: 10px; */
+        display: none;
+    }
+
+    .footer-courses {
+        /* margin-left: -20px;
+        grid-column: 2 / 3 !important;
+        text-align: left !important; */
+        display: none;
+    }
+
+    .footer-links h3,
+    .footer-courses h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
+        border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
+        padding-bottom: 4px;
+        display: inline-block;
+    }
+
+    .footer-links ul,
+    .footer-courses ul {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .footer-links ul li,
+    .footer-courses ul li {
+        margin-bottom: 6px !important;
+    }
+
+    .footer-links ul li a,
+    .footer-courses ul li a {
+        font-size: 0.82rem !important;
+        line-height: 1.35 !important;
+        display: block;
+        word-break: break-word;
+    }
+
+    /* Section 4: Contact Info (Full Width) */
+    .footer-contact {
+        grid-column: 1 / -1 !important;
+        text-align: center !important;
+        border-top: 1px dashed rgba(212, 175, 55, 0.35);
+    }
+
+    .footer-contact h3 {
+        font-size: 1.15rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .footer-contact p {
+        font-size: 0.84rem !important;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        gap: 6px;
+        margin-bottom: 5px !important;
+    }
+
+    .d-blck {
+        display: block;
+    }
+
+    .footer-bottom .pipee {
+        display: none !important;
     }
 }

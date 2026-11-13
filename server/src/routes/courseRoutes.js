@@ -4,6 +4,7 @@ const {
   getCourses,
   getCourseBySlug,
   getCategories,
+  getPublicStats,
   createCourse,
   updateCourse,
   deleteCourse,
@@ -11,12 +12,13 @@ const {
 const { authenticateUser, authorizeRoles } = require("../middleware/authMiddleware");
 
 router.get("/", getCourses);
+router.get("/public/stats", getPublicStats);
 router.get("/categories", getCategories);
 router.get("/:slug", getCourseBySlug);
 
-// Admin-only CRUD
-router.post("/", authenticateUser, authorizeRoles("ADMIN"), createCourse);
-router.put("/:id", authenticateUser, authorizeRoles("ADMIN"), updateCourse);
+// Admin & Teacher course management
+router.post("/", authenticateUser, authorizeRoles("ADMIN", "TEACHER"), createCourse);
+router.put("/:id", authenticateUser, authorizeRoles("ADMIN", "TEACHER"), updateCourse);
 router.delete("/:id", authenticateUser, authorizeRoles("ADMIN"), deleteCourse);
 
 module.exports = router;

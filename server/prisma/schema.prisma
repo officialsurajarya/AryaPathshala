@@ -47,6 +47,19 @@ model User {
   resetPasswordExpires DateTime?
   lastLogin            DateTime?
   avatar               String?      @default("🕉️")
+
+  // Student Information & Academic Profile
+  fatherName           String?
+  dob                  String?
+  education            String?
+  address              String?
+  city                 String?
+  state                String?
+  pincode              String?
+  idDocumentType       String?
+  idDocumentNumber     String?
+  academicNotes        String?      @db.Text
+
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
 
@@ -62,6 +75,8 @@ model Course {
   title          String
   titleEn        String?
   description    String       @db.Text
+  syllabus       String?      @db.Text
+  instructor     String?      @default("आचार्य")
   image          String
   originalPrice  String
   currentPrice   String
@@ -165,4 +180,35 @@ model SystemSetting {
   updatedAt   DateTime @updatedAt
 
   @@map("system_settings")
+}
+
+model LiveSession {
+  id          Int      @id @default(autoincrement())
+  title       String
+  courseTitle String
+  instructor  String   @default("आचार्य")
+  day         String
+  time        String
+  meetUrl     String
+  status      String   @default("आगामी")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("live_sessions")
+}
+
+model StudentDoubt {
+  id            Int      @id @default(autoincrement())
+  studentId     Int?
+  studentName   String
+  studentEmail  String
+  courseTitle   String
+  shlokaContext String?  @db.Text
+  question      String   @db.Text
+  reply         String?  @db.Text
+  status        String   @default("PENDING")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("student_doubts")
 }

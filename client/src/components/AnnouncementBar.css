@@ -1,0 +1,302 @@
+/* =========================================================
+   AnnouncementBar.css — Left Contact | Mid Ticker | Right Email
+   Strict Zero X-Scroll | Clean Separation | No Overlap
+   ========================================================= */
+
+.announcement-bar {
+  background: linear-gradient(90deg, #590c1e 0%, #841b3a 20%, #9e2243 50%, #841b3a 80%, #590c1e 100%);
+  color: #fffdf8;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  font-size: 0.77rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1040;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 5px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  overflow: hidden !important;
+}
+
+.announcement-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 90%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Left Side: Contact ─────────────────────────────────── */
+.announcement-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+  background: inherit;
+}
+
+/* ── Right Side: Email ──────────────────────────────────── */
+.announcement-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 5;
+  background: inherit;
+}
+
+/* Common Links */
+.announcement-link {
+  color: #fef8e7;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.76rem;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.announcement-link:hover {
+  color: #ffd875;
+  text-decoration: none;
+}
+
+.announcement-icon-bubble {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.22);
+  color: #ffd875;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.contact-label,
+.email-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+  font-size: 0.73rem;
+  margin-right: 2px;
+}
+
+.contact-value,
+.email-value {
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+/* ── Mid: Auto-Scrolling Notification Ticker ────────────── */
+.announcement-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+  overflow: hidden !important;
+  cursor: default;
+  position: relative;
+}
+
+.announcement-tag {
+  background: linear-gradient(135deg, #d4af37 0%, #fdeaa8 100%);
+  color: #5d0f22;
+  font-size: 0.67rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 9px;
+  letter-spacing: 0.2px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+}
+
+.ticker-viewport {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden !important;
+  position: relative;
+  white-space: nowrap;
+  mask-image: linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
+}
+
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: tickerScroll 34s linear infinite;
+  will-change: transform;
+}
+
+/* Pause ticker on hover */
+.announcement-center:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  color: #fffdf8;
+  font-weight: 500;
+}
+
+.ticker-item.loading-text {
+  color: #fdeaa8;
+}
+
+.ticker-bullet {
+  color: #d4af37;
+  font-size: 0.7rem;
+  margin: 0 16px;
+  opacity: 0.85;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Responsive Viewports ───────────────────────────────── */
+@media (max-width: 991.98px) {
+  .announcement-container {
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .email-label {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .announcement-bar {
+    padding: 4px 0;
+  }
+
+  .announcement-container {
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .announcement-tag {
+    font-size: 0.62rem;
+    padding: 1.5px 5px;
+  }
+
+  .ticker-item {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .announcement-bar {
+    padding: 5px 0 6px 0;
+    transition: padding 0.3s ease;
+  }
+
+  .announcement-container {
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center;
+    gap: 4px 8px;
+    width: 100%;
+  }
+
+  .announcement-left {
+    order: 1;
+    flex: 0 0 auto;
+  }
+
+  .announcement-right {
+    order: 2;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  .announcement-center {
+    order: 3;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 3px 0 0 0;
+    margin-top: 2px;
+    border-top: 1px solid rgba(212, 175, 55, 0.22);
+    max-height: 48px;
+    opacity: 1;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease,
+                margin 0.3s ease,
+                padding 0.3s ease,
+                transform 0.25s ease,
+                visibility 0.3s ease;
+    visibility: visible;
+  }
+
+  /* Scrolled Down in Phone Mode: Smoothly hide Notification Panel */
+  .announcement-bar.scrolled-down-hide {
+    padding: 3px 0 !important;
+  }
+
+  .announcement-bar.scrolled-down-hide .announcement-center {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
+    transform: translateY(-8px);
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+
+  .contact-value {
+    display: inline !important;
+    font-size: 0.72rem !important;
+  }
+
+  .email-value {
+    display: inline !important;
+    font-size: 0.7rem !important;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .announcement-tag {
+    display: inline-flex !important;
+    font-size: 0.62rem !important;
+    padding: 1.5px 5px !important;
+  }
+
+  .announcement-icon-bubble {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}

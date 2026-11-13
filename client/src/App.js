@@ -13,17 +13,35 @@ import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AuthPage from "./components/AuthPage";
 import Dashboard from "./components/Dashboard";
+import TeacherDashboard from "./components/TeacherDashboard";
 import AdminPanel from "./components/AdminPanel";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { api } from "./api/client";
 
 function AppContent() {
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin, isTeacher } = useAuth();
   const [loading, setLoading] = useState(true);
   const [categoryToScroll, setCategoryToScroll] = useState(null);
   const [showAuth, setShowAuth] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const hash = window.location.hash || "";
+        const saved = localStorage.getItem("arya_active_dashboard");
+        if (
+          saved === "true" ||
+          hash.startsWith("#admin") ||
+          hash.startsWith("#dashboard") ||
+          hash.startsWith("#teacher")
+        ) {
+          return true;
+        }
+      }
+    } catch (e) {}
+    return false;
+  });
   const [enrollModal, setEnrollModal] = useState(null);
   const [enrollStatus, setEnrollStatus] = useState({ loading: false, error: null, success: false });
 
@@ -33,9 +51,49 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, []);
 
-  const openAuth = () => {
+  const openDashboard = () => {
+    try {
+      localStorage.setItem("arya_active_dashboard", "true");
+      if (isAdmin) {
+        if (!window.location.hash.startsWith("#admin")) {
+          const savedTab = localStorage.getItem("arya_admin_tab") || "overview";
+          window.history.replaceState(null, "", `#admin?tab=${savedTab}`);
+        }
+      } else if (isTeacher) {
+        if (!window.location.hash.startsWith("#teacher")) {
+          const savedTab = localStorage.getItem("arya_teacher_tab") || "overview";
+          window.history.replaceState(null, "", `#teacher?tab=${savedTab}`);
+        }
+      } else {
+        if (!window.location.hash.startsWith("#dashboard")) {
+          const savedTab = localStorage.getItem("arya_student_tab") || "overview";
+          window.history.replaceState(null, "", `#dashboard?tab=${savedTab}`);
+        }
+      }
+    } catch (e) {}
+    setShowDashboard(true);
+  };
+
+  const handleBackToHome = () => {
+    try {
+      localStorage.removeItem("arya_active_dashboard");
+      localStorage.removeItem("arya_admin_tab");
+      localStorage.removeItem("arya_student_tab");
+      localStorage.removeItem("arya_teacher_tab");
+      if (
+        window.location.hash.startsWith("#admin") ||
+        window.location.hash.startsWith("#dashboard") ||
+        window.location.hash.startsWith("#teacher")
+      ) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    } catch (e) {}
     setShowDashboard(false);
-    setShowAuth(true);
+  };
+
+  const openAuth = (tab = "login") => {
+    handleBackToHome();
+    setShowAuth(typeof tab === "string" ? tab : "login");
   };
 
   const closeAuth = () => setShowAuth(false);
@@ -62,7 +120,7 @@ function AppContent() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${showDashboard ? "dashboard-active" : ""}`}>
       {/* Animated Sanskrit Loader */}
       {loading && <Loader onFinish={() => setLoading(false)} />}
 
@@ -73,24 +131,28 @@ function AppContent() {
             <Header
               onCategorySelect={(cat) => {
                 setCategoryToScroll(cat);
-                setShowDashboard(false);
+                handleBackToHome();
               }}
               showAuth={openAuth}
-              onOpenDashboard={() => setShowDashboard(true)}
+              onOpenDashboard={openDashboard}
             />
           )}
 
-          {/* Conditional View: AdminPanel / Dashboard / Main Portal */}
+          {/* Conditional View: AdminPanel / TeacherDashboard / Dashboard */}
           {showDashboard ? (
-            isAdmin
-              ? <AdminPanel onBackToHome={() => setShowDashboard(false)} />
-              : <Dashboard onBackToHome={() => setShowDashboard(false)} />
+            isAdmin ? (
+              <AdminPanel onBackToHome={handleBackToHome} />
+            ) : isTeacher ? (
+              <TeacherDashboard onBackToHome={handleBackToHome} />
+            ) : (
+              <Dashboard onBackToHome={handleBackToHome} />
+            )
           ) : (
             <>
               <Home
                 onStartStudy={() => {
                   if (isAuthenticated) {
-                    setShowDashboard(true);
+                    openDashboard();
                   } else {
                     openAuth();
                   }
@@ -118,7 +180,12 @@ function AppContent() {
           )}
 
           {/* Auth Modal */}
-          {showAuth && <AuthPage closeAuth={closeAuth} />}
+          {showAuth && (
+            <AuthPage
+              initialTab={typeof showAuth === "string" ? showAuth : "login"}
+              closeAuth={closeAuth}
+            />
+          )}
 
           {/* Enrollment Success / Action Modal */}
           <Modal show={!!enrollModal} onHide={() => setEnrollModal(null)} centered>
@@ -173,6 +240,9 @@ function AppContent() {
               )}
             </Modal.Footer>
           </Modal>
+
+          {/* Permanent Floating WhatsApp Support Button */}
+          <WhatsAppButton />
         </>
       )}
     </div>

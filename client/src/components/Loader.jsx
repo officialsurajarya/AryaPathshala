@@ -64,24 +64,24 @@ const Loader = ({ onFinish }) => { // ✅ Accept onFinish to inform parent when 
     }, [progress, textIndex, onFinish]);
 
     useEffect(() => {
-    let start = null;
+        let start = null;
 
-    const animate = timestamp => {
-        if (!start) start = timestamp;
-        const progressTime = timestamp - start;
-        const duration = 2000; // 2 seconds total
-        const next = Math.min((progressTime / duration) * 100, 100);
-        setProgress(next);
+        const animate = timestamp => {
+            if (!start) start = timestamp;
+            const progressTime = timestamp - start;
+            const duration = 2000; // 2 seconds total
+            const next = Math.min((progressTime / duration) * 100, 100);
+            setProgress(next);
 
-        if (next < 100) {
-            requestAnimationFrame(animate);
-        }
-    };
+            if (next < 100) {
+                requestAnimationFrame(animate);
+            }
+        };
 
-    requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
 
-    return () => {};
-}, []);
+        return () => { };
+    }, []);
 
 
     return (
