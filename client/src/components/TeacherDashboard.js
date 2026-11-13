@@ -46,9 +46,12 @@ export default function TeacherDashboard({ onBackToHome }) {
     return "overview";
   });
 
-  const [sidebarOpen, setSidebarOpen] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 992 : true
-  );
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth < 992 : false;
+  });
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth >= 992 : false;
+  });
 
   // Data states - 100% Live from MySQL Database
   const [courses, setCourses] = useState([]);
@@ -134,15 +137,18 @@ export default function TeacherDashboard({ onBackToHome }) {
     } catch (e) { }
   }, [activeTab]);
 
-  // Window resize listener
+  // Window resize auto-collapse sidebar & sync mobile state
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 992) {
+      const mobile = window.innerWidth < 992;
+      setIsMobile(mobile);
+      if (mobile) {
         setSidebarOpen(false);
       } else {
         setSidebarOpen(true);
       }
     };
+    handleResize(); // Execute immediately on mount to prevent any false backdrop
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -421,8 +427,8 @@ export default function TeacherDashboard({ onBackToHome }) {
 
   return (
     <div className="teacher-portal-root">
-      {/* Mobile Drawer Backdrop (only shown on mobile screens < 992px) */}
-      {sidebarOpen && typeof window !== "undefined" && window.innerWidth < 992 && (
+      {/* Mobile Drawer Backdrop (only when mobile drawer is explicitly opened) */}
+      {isMobile && sidebarOpen && (
         <div
           className="teacher-sidebar-backdrop"
           onClick={() => setSidebarOpen(false)}

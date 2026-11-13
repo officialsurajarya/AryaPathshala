@@ -3141,19 +3141,25 @@ export default function AdminPanel({ onBackToHome }) {
   const [activeTab, setActiveTab] = useState(() => {
     return localStorage.getItem("arya_admin_tab") || "overview";
   });
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth < 992 : false;
+  });
   const [sidebarOpen, setSidebarOpen] = useState(() => {
-    return typeof window !== "undefined" ? window.innerWidth >= 992 : true;
+    return typeof window !== "undefined" ? window.innerWidth >= 992 : false;
   });
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 992) {
+      const mobile = window.innerWidth < 992;
+      setIsMobile(mobile);
+      if (mobile) {
         setSidebarOpen(false);
       } else {
         setSidebarOpen(true);
       }
     };
+    handleResize(); // Execute immediately on mount to prevent any false backdrop
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -3180,7 +3186,7 @@ export default function AdminPanel({ onBackToHome }) {
 
   return (
     <div className="admin-root">
-      {sidebarOpen && typeof window !== "undefined" && window.innerWidth < 992 && (
+      {isMobile && sidebarOpen && (
         <div
           className="admin-sidebar-backdrop"
           onClick={() => setSidebarOpen(false)}

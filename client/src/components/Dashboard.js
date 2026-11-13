@@ -94,9 +94,12 @@ export default function Dashboard({ onBackToHome }) {
     return "overview";
   });
 
-  const [sidebarOpen, setSidebarOpen] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 992 : true
-  );
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth < 992 : false;
+  });
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    return typeof window !== "undefined" ? window.innerWidth >= 992 : false;
+  });
 
   // Data states
   const [enrollments, setEnrollments] = useState([]);
@@ -174,15 +177,18 @@ export default function Dashboard({ onBackToHome }) {
     } catch (e) { }
   }, [activeTab]);
 
-  // Window resize auto-collapse sidebar
+  // Window resize auto-collapse sidebar & sync mobile state
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 992) {
+      const mobile = window.innerWidth < 992;
+      setIsMobile(mobile);
+      if (mobile) {
         setSidebarOpen(false);
       } else {
         setSidebarOpen(true);
       }
     };
+    handleResize(); // Execute immediately on mount to prevent any false backdrop
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -464,8 +470,8 @@ export default function Dashboard({ onBackToHome }) {
 
   return (
     <div className="student-portal-root">
-      {/* Mobile Drawer Backdrop (only shown on mobile screens < 992px) */}
-      {sidebarOpen && typeof window !== "undefined" && window.innerWidth < 992 && (
+      {/* Mobile Drawer Backdrop (only when mobile drawer is explicitly opened) */}
+      {isMobile && sidebarOpen && (
         <div
           className="student-sidebar-backdrop"
           onClick={() => setSidebarOpen(false)}

@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+const fs = require("fs");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -71,6 +73,16 @@ app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/live-sessions", liveSessionRoutes);
 app.use("/api/doubts", doubtRoutes);
+
+// Serve static frontend build if present (Unified Single Server Deployment)
+const clientBuildPath = path.resolve(__dirname, "../../client/build");
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientBuildPath, "index.html"));
+  });
+}
 
 // Error handling
 app.use(notFoundHandler);

@@ -1,0 +1,64 @@
+name: Auto Deploy Arya Pathshala to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy to Hostinger
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Root & Server Dependencies
+        run: |
+          npm install
+          npm install --prefix server
+          cd server && npx prisma generate
+
+      - name: ⚛️ Build React Frontend (Client)
+        run: |
+          npm install --prefix client
+          npm run build --prefix client
+
+      - name: 🚀 Deploy Frontend (Build) to Hostinger public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        if: ${{ env.FTP_SERVER != '' }}
+        env:
+          FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: ./client/build/
+          server-dir: ./public_html/
+          dangerous-clean-slate: false
+
+      - name: 🚀 Deploy Backend Server to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        if: ${{ env.FTP_SERVER != '' }}
+        env:
+          FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: ./server/
+          server-dir: ./server/
+          exclude: |
+            **/node_modules/**
+            **/.git*
+            **/.git*/**
+            **/.env
+            **/prisma/*.db

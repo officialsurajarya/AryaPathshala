@@ -44,11 +44,9 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(25, 8, 12, 0.65);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    background: rgba(25, 8, 12, 0.48);
     z-index: 1040;
-    animation: tpFadeIn 0.25s ease-out;
+    animation: tpFadeIn 0.2s ease-out;
   }
 }
 

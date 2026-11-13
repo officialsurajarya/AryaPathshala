@@ -2,8 +2,13 @@
   "name": "aryapathshala-workspace",
   "version": "1.0.0",
   "private": true,
+  "main": "server/src/server.js",
   "description": "Arya Pathshala - Vedic & Sanskrit Educational Portal (Monorepo Workspace)",
   "scripts": {
+    "postinstall": "npm install --prefix client && npm install --prefix server",
+    "preclient:build": "chmod +x client/node_modules/.bin/* 2>/dev/null || true",
+    "build": "npm run client:build",
+    "start": "npm start --prefix server",
     "client": "npm start --prefix client",
     "server": "npm run dev --prefix server",
     "client:start": "npm start --prefix client",
