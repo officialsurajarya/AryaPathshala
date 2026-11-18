@@ -1,8 +1,11 @@
 // Arya Pathshala — Centralized API Client
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL ||
-  (process.env.NODE_ENV === "production" ? "/api" : "http://localhost:5000/api");
+// In production, NEVER call localhost/private network to prevent browser "Access other apps and services" security prompt
+const isProd = process.env.NODE_ENV === "production" || (typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1");
+
+const API_BASE_URL = isProd
+  ? (process.env.REACT_APP_API_URL && !process.env.REACT_APP_API_URL.includes("localhost") ? process.env.REACT_APP_API_URL : "/api")
+  : (process.env.REACT_APP_API_URL || "http://localhost:5000/api");
 
 const getAuthToken = () => {
   return localStorage.getItem("arya_auth_token");
