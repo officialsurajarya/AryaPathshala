@@ -330,7 +330,7 @@ export default function AuthPage({ closeAuth, initialTab = "login" }) {
                     <input
                       type="email"
                       className="auth-input-field"
-                      placeholder="admin@aryapathshala.com"
+                      placeholder="student@gmail.com"
                       required
                       value={loginData.email}
                       onChange={(e) =>
