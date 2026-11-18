@@ -1,22 +1,3 @@
 # Dependencies
 node_modules/
 
-# Environment Variables & Secrets
-.env
-.env.local
-.env.production
-.env.development
-*.env
-server/.env
-client/.env
-client/.env.local
-client/.env.production
-client/.env.development
-password.md
-ForSurajArya.md
-
-# Logs & temp
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
